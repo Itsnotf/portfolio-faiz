@@ -17,6 +17,8 @@ const display = localFont({
   variable: '--font-anybody',
   weight: '100 900',
   display: 'swap',
+  // The width-matched fallback faces live in globals.css (the automatic one is sized for regular weight).
+  adjustFontFallback: false,
   declarations: [{ prop: 'font-stretch', value: '50% 150%' }],
 });
 
