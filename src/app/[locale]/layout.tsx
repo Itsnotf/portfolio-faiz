@@ -72,6 +72,12 @@ export const viewport: Viewport = {
 
 const motionFlag = `try{if(matchMedia('(prefers-reduced-motion: no-preference)').matches){document.documentElement.classList.add('motion');setTimeout(function(){var h=document.querySelector('.hero');if(h&&!h.hasAttribute('data-ready'))h.classList.add('is-tidy')},3500)}}catch(e){}`;
 
+// Some hosts inject a comment into <head> (Netlify adds "This site is hosted on Netlify…" after <meta charset>).
+// React renders <head> itself, so that stray comment and its whitespace break hydration; React then re-renders the
+// whole page on the client and drops the classes above, which switches the animations off. React never puts
+// comments or whitespace in <head>, so removing them before hydration is safe.
+const headCleanup = `try{for(var n=document.head.firstChild,x;n;n=x){x=n.nextSibling;if(n.nodeType===8||(n.nodeType===3&&!n.nodeValue.trim()))n.remove()}}catch(e){}`;
+
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -81,7 +87,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <html lang={locale} className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeFlag + motionFlag }} />
+        <script dangerouslySetInnerHTML={{ __html: headCleanup + themeFlag + motionFlag }} />
       </head>
       <body>
         <a href="#main" className="skip-link">{t('skip')}</a>

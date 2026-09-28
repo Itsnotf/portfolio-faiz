@@ -9,7 +9,7 @@ import { services } from '@/content/services';
 import { caseStudies } from '@/content/work';
 import { Link } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
-import { pageMetadata } from '@/lib/seo';
+import { ogImagePath, pageMetadata } from '@/lib/seo';
 import { breadcrumb, caseStudyEntity, graph } from '@/lib/structured-data';
 
 type Params = Promise<{ locale: Locale; slug: string }>;
@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     description: project.seoDescription?.[locale] ?? project.problem[locale],
     hrefFor: () => ({ pathname: '/work/[slug]', params: { slug } }),
     type: 'article',
+    image: ogImagePath(locale, `/work/${slug}`),
   });
 }
 

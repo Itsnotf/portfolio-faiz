@@ -11,7 +11,7 @@ import { projects } from '@/content/work';
 import { Link } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
 import { articleBySlug, articles, translation } from '@/lib/articles';
-import { pageMetadata } from '@/lib/seo';
+import { ogImagePath, pageMetadata } from '@/lib/seo';
 import { blogPosting, breadcrumb, graph, person } from '@/lib/structured-data';
 
 type Params = Promise<{ locale: Locale; slug: string }>;
@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       description: a.description,
       type: 'article',
       dates: { published: a.published, updated: a.updated },
+      image: ogImagePath(locale, `/articles/${a.slug}`),
       hrefFor: (l) => ({ pathname: '/articles/[slug]', params: { slug: translation(a, l).slug } }),
     }),
     // A draft is only a preview for approval, so search engines must not keep it.

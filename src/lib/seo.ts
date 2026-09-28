@@ -35,6 +35,14 @@ export function alternates(locale: Locale, hrefFor: (l: Locale) => Href) {
 }
 
 /**
+ * Public path of a route's own opengraph-image file. Image routes are not covered by the localised pathnames, so they
+ * use the internal path (`/articles/…`, not `/artikel/…`) with the language prefix; that path is served directly.
+ */
+export function ogImagePath(locale: Locale, internalPath: string): string {
+  return `${locale === routing.defaultLocale ? '' : `/${locale}`}${internalPath}/opengraph-image`;
+}
+
+/**
  * Metadata for one page: keyword-first title, description, canonical, hreflang and Open Graph, all consistent.
  * `absoluteTitle` skips the "— Faiz Aflah Hafizuddin" suffix (used where the title already carries the name).
  */
@@ -46,12 +54,12 @@ export function pageMetadata(opts: {
   type?: 'website' | 'article';
   /** Dates shown to social networks for articles. */
   dates?: { published: string; updated: string };
+  /** The page's own share image (see ogImagePath). Pages without one share the site image. */
+  image?: string;
   absoluteTitle?: boolean;
 }): Metadata {
   const alt = alternates(opts.locale, opts.hrefFor);
-  // Pages without their own opengraph-image file share the site image. A route's own image file still wins.
-  const home = pathFor(opts.locale, '/');
-  const images = [{ url: `${home === '/' ? '' : home}/opengraph-image`, width: 1200, height: 630, alt: opts.title }];
+  const images = [{ url: opts.image ?? ogImagePath(opts.locale, ''), width: 1200, height: 630, alt: opts.title }];
   const base = {
     title: opts.title,
     description: opts.description,
