@@ -15,7 +15,8 @@ Cara AI menemukan situs ini:
 
 ## 1. Hari pertama setelah deploy
 
-- [ ] Di Vercel, isi environment variable lalu redeploy.
+- [ ] Di Netlify (*Project configuration → Domain management*), pasang domainmu. Lalu di *Environment variables*, isi
+      atau ubah variabel berikut dan jalankan deploy ulang (*Deploys → Trigger deploy*).
   - `NEXT_PUBLIC_SITE_URL` = `https://domainmu.com` (tanpa garis miring di akhir)
   - `GOOGLE_SITE_VERIFICATION` = kode dari langkah Search Console di bawah
   - `BING_SITE_VERIFICATION` = kode dari Bing (boleh dilewati kalau impor dari Search Console)
@@ -106,8 +107,9 @@ profil.
 **4–8 minggu setelah live**
 - [ ] Search Console, menu *Performance*. Catat kueri yang benar-benar mendatangkan tayangan dan klik, lalu sesuaikan
       judul atau buat artikel untuk kueri yang hampir masuk halaman pertama.
-- [ ] Vercel Analytics, lihat *Referrers*. Kunjungan dari chatgpt.com, perplexity.ai, gemini.google.com, atau claude.ai
-      menandakan situs mulai dikutip AI.
+- [ ] Analitik kunjungan (belum terpasang di Netlify, bisa pakai Cloudflare Web Analytics yang gratis), lihat
+      *Referrers*. Kunjungan dari chatgpt.com, perplexity.ai, gemini.google.com, atau claude.ai menandakan situs mulai
+      dikutip AI.
 - [ ] Uji langsung di ChatGPT, Gemini, Claude, dan Perplexity dengan pertanyaan seperti berikut, lalu catat apakah
       situsmu disebut.
   - "jasa pembuatan aplikasi di Palembang"

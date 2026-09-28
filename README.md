@@ -98,22 +98,35 @@ a language or a required field.
 - Off-site steps (Search Console, Bing, Google Business Profile, profiles, the standard bio, what to measure) are in
   `docs/seo-offsite.md`.
 
-## Deploy (Vercel)
+## Deploy (Netlify)
 
-1. Push this folder to a GitHub repo and import it in Vercel.
-2. Set the environment variables from `.env.example`. `NEXT_PUBLIC_SITE_URL` is required, because canonical URLs,
-   hreflang, the sitemap, structured data and llms.txt use it. `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`
-   are the ownership codes. Never set `SHOW_DRAFTS` on production.
-3. After the first deploy, follow `docs/seo-offsite.md`, starting with the sitemap in Search Console and Bing, then
+The site runs on Netlify's free plan, which allows commercial use (Vercel's free Hobby plan does not, and this site
+advertises services). Netlify builds every push to `main` of
+[github.com/Itsnotf/portfolio-faiz](https://github.com/Itsnotf/portfolio-faiz); settings are in `netlify.toml`.
+
+1. Environment variables live in Netlify under *Project configuration → Environment variables* (see `.env.example`).
+   `NEXT_PUBLIC_SITE_URL` is required, because canonical URLs, hreflang, the sitemap, structured data and llms.txt use
+   it. `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` are the ownership codes. Never set `SHOW_DRAFTS` there.
+   Changing a variable needs a new deploy.
+2. When the domain is connected, set `NEXT_PUBLIC_SITE_URL` to it (Netlify then redirects `faizaflah.netlify.app` to
+   the domain), redeploy, and follow `docs/seo-offsite.md`, starting with the sitemap in Search Console and Bing, then
    `NEXT_PUBLIC_SITE_URL=https://your-domain npm run indexnow`.
-4. Vercel Analytics turns on by itself on Vercel. Referrers from chatgpt.com, perplexity.ai or gemini.google.com show AI
-   traffic.
+
+Things to know:
+
+- Do not deploy with `netlify deploy --build` from Windows. Netlify's Next.js adapter mangles Windows paths when it
+  packages the middleware. Push to GitHub and let Netlify build on Linux.
+- Netlify injects an HTML comment into `<head>`. The inline script in `src/app/[locale]/layout.tsx` removes it
+  before hydration. Without that, React re-rendered every page and the animations switched off.
+- `@vercel/analytics` only runs on Vercel, so there is no analytics on Netlify yet. Search Console covers search
+  queries. For AI referrers (chatgpt.com, perplexity.ai, gemini.google.com), add a free tool such as Cloudflare Web
+  Analytics.
 
 ## Still to do
 
 - [ ] Put an up-to-date CV at `public/cv/cv-faiz-aflah-hafizuddin.pdf` and set `profile.cv` (the one in Documents is outdated).
 - [ ] Add a photo in `src/content/profile.ts` (and a LinkedIn URL if you create one).
-- [ ] Buy the .com domain, deploy, and work through `docs/seo-offsite.md`.
+- [ ] Buy the domain (.com or .dev), connect it in Netlify, and work through `docs/seo-offsite.md`.
 - [ ] Confirm the reasoning for the 0.65 recognition threshold (`TODO(Faiz)` in `src/content/work.ts`).
 - [ ] Add a reflection to the SIPEG case study: what triggered the September 2026 rebuild?
 - [ ] Confirm roles and status of the client projects in the archive and the procurement case study (`TODO(Faiz)`).
