@@ -1,0 +1,839 @@
+@import 'tailwindcss';
+
+/* Wide but short screens (laptops at 1366×768, 1280×720): pinned sections tighten up. */
+@custom-variant short (@media (min-width: 768px) and (max-height: 820px));
+
+/*
+ * Palette taken from carbon-copy office forms: paper, ballpoint ink, the violet of a rubber
+ * stamp, and the yellow and pink copies of a multi-part form. Yellow and pink appear only in
+ * the "messy" state of the hero and in small markers; the tidy site is paper, ink and stamp.
+ *
+ * Every colour is a semantic token on :root so the dark theme only has to redefine the tokens.
+ * The Tailwind names (kertas, tinta, stempel…) map onto the tokens, so utilities follow the theme.
+ */
+:root {
+  color-scheme: light;
+  --bg: #eef1f0;
+  --surface: #fbfcfb;
+  --paper: #ffffff;
+  --ink: #1e2a4a;
+  --ink-muted: #4a5572;
+  --line: #c9cfd3;
+  --line-soft: #d7dde0;
+  --accent: #6b3fa0;
+  --accent-strong: #54307f;
+  --on-accent: #ffffff;
+  --mark-yellow: #f2cf3a;
+  --mark-pink: #efa3b6;
+  --mark-green: #e9f4ec;
+  --mark-blue: #9fb3d9;
+  --danger: #b42318;
+  --invert-bg: #1e2a4a;
+  --invert-ink: #eef1f0;
+  --invert-accent: #f2cf3a;
+  --shadow-rgb: 30 42 74;
+  --stamp-blend: multiply;
+
+  /* One horizontal system for the whole site: every section starts at the same left edge. */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --max: 80rem;
+  --measure: 36rem;
+  --measure-wide: 44rem; /* about 75–80 characters of 18px body text */
+  --header-h: 4.5rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Dark theme: an explicit choice (data-theme, set before paint from localStorage) wins; otherwise the system setting. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f1526;
+  --surface: #161e33;
+  --paper: #f6f4ee;
+  --ink: #e7eaf1;
+  --ink-muted: #a4adc3;
+  --line: #2d3756;
+  --line-soft: #3a4566;
+  --accent: #b391ff;
+  --accent-strong: #cbb2ff;
+  --on-accent: #150d2b;
+  --mark-yellow: #f2cf3a;
+  --mark-pink: #efa3b6;
+  --mark-green: #e9f4ec;
+  --mark-blue: #9fb3d9;
+  --danger: #ff8f80;
+  --invert-bg: #19223c;
+  --invert-ink: #eef1f5;
+  --invert-accent: #f2cf3a;
+  --shadow-rgb: 0 0 0;
+  --stamp-blend: normal;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0f1526;
+    --surface: #161e33;
+    --paper: #f6f4ee;
+    --ink: #e7eaf1;
+    --ink-muted: #a4adc3;
+    --line: #2d3756;
+    --line-soft: #3a4566;
+    --accent: #b391ff;
+    --accent-strong: #cbb2ff;
+    --on-accent: #150d2b;
+    --mark-yellow: #f2cf3a;
+    --mark-pink: #efa3b6;
+    --mark-green: #e9f4ec;
+    --mark-blue: #9fb3d9;
+    --danger: #ff8f80;
+    --invert-bg: #19223c;
+    --invert-ink: #eef1f5;
+    --invert-accent: #f2cf3a;
+    --shadow-rgb: 0 0 0;
+    --stamp-blend: normal;
+  }
+}
+
+@theme inline {
+  --color-kertas: var(--bg);
+  --color-lembar: var(--surface);
+  --color-paper: var(--paper);
+  --color-tinta: var(--ink);
+  --color-tinta-muda: var(--ink-muted);
+  --color-garis: var(--line);
+  --color-stempel: var(--accent);
+  --color-stempel-gelap: var(--accent-strong);
+  --color-on-stempel: var(--on-accent);
+  --color-kuning: var(--mark-yellow);
+  --color-merah-muda: var(--mark-pink);
+  --color-danger: var(--danger);
+  --color-invert: var(--invert-bg);
+  --color-on-invert: var(--invert-ink);
+  --color-invert-accent: var(--invert-accent);
+
+  --font-display: var(--font-anybody), 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: var(--header-h);
+  }
+  body {
+    background: var(--bg);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  ::selection {
+    background: var(--mark-yellow);
+    color: #1e2a4a;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: -3rem;
+    z-index: 60;
+    background: var(--ink);
+    color: var(--surface);
+    padding: 0.5rem 0.9rem;
+    border-radius: 4px;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* ── Layout ─────────────────────────────────────────── */
+
+  .wrap {
+    width: min(100% - 2 * var(--gutter), var(--max));
+    margin-inline: auto;
+  }
+  /* Inset that puts full-bleed content (horizontal tracks) on the same left edge as .wrap. */
+  .pad-wrap {
+    padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
+  }
+  .grid-12 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: clamp(1rem, 2.5vw, 2.5rem);
+  }
+  @media (min-width: 768px) {
+    .grid-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+  .measure {
+    max-width: var(--measure);
+  }
+  .measure-wide {
+    max-width: var(--measure-wide);
+  }
+  .section {
+    padding-block: clamp(5rem, 11vw, 9rem);
+  }
+
+  /* ── Type ───────────────────────────────────────────── */
+
+  /* Section label: sentence case at a readable size (all-caps small text is slow to read). */
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+  }
+  .eyebrow > b {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  /* Normal width: long headings in Indonesian stay easy to read. The hero keeps its width play. */
+  .h-section {
+    font-size: clamp(2.4rem, 4.8vw, 4.4rem);
+    line-height: 1.04;
+    font-stretch: 100%;
+    letter-spacing: -0.015em;
+  }
+  .lead {
+    font-size: clamp(1.1rem, 1.35vw, 1.3rem);
+    line-height: 1.55;
+    color: var(--ink-muted);
+  }
+
+  /* Article body rendered from Markdown: long-form reading size, clear section breaks, visible list markers. */
+  .prose-article {
+    max-width: var(--measure-wide);
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  .prose-article > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-article h2 {
+    margin-top: 2.4em;
+    font-size: clamp(1.6rem, 2.4vw, 2.05rem);
+    line-height: 1.15;
+    font-stretch: 100%;
+  }
+  .prose-article h3 {
+    margin-top: 1.9em;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    font-stretch: 100%;
+  }
+  .prose-article h2 + *,
+  .prose-article h3 + * {
+    margin-top: 0.6em;
+  }
+  /* A section heading straight into a sub-heading keeps enough air to read as two levels. */
+  .prose-article h2 + h3 {
+    margin-top: 1.5em;
+  }
+  .prose-article > :first-child {
+    margin-top: 0;
+  }
+  .prose-article ul,
+  .prose-article ol {
+    padding-left: 1.4em;
+  }
+  .prose-article ul {
+    list-style: disc;
+  }
+  .prose-article ol {
+    list-style: decimal;
+  }
+  .prose-article li + li {
+    margin-top: 0.45em;
+  }
+  .prose-article li::marker {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .prose-article strong {
+    font-weight: 700;
+  }
+  .prose-article a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .prose-article blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1em;
+    color: var(--ink-muted);
+  }
+
+  /* ── Buttons & links ────────────────────────────────── */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.975rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 200ms, color 200ms, border-color 200ms;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-strong);
+  }
+  .btn-secondary {
+    border: 1.5px solid currentColor;
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .btn-sm {
+    min-height: 2.4rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Label that rolls up to a copy of itself on hover. Markup: <span class="roll" data-label="X"><span>X</span></span> */
+  .roll {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1.25;
+    vertical-align: bottom;
+  }
+  .roll > span {
+    display: inline-block;
+  }
+  .roll::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+  @media (hover: hover) {
+    html.motion .roll > span,
+    html.motion .roll::after {
+      transition: transform 0.55s var(--ease-in-out);
+    }
+    html.motion :is(a, button):hover .roll > span,
+    html.motion :is(a, button):hover .roll::after,
+    html.motion :is(a, button):focus-visible .roll > span,
+    html.motion :is(a, button):focus-visible .roll::after,
+    html.motion .card:hover .roll > span,
+    html.motion .card:hover .roll::after,
+    html.motion .card:focus-within .roll > span,
+    html.motion .card:focus-within .roll::after {
+      transform: translateY(-100%);
+    }
+  }
+
+  /* Underline that retracts to the right and redraws from the left on hover. */
+  .link {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+    padding-bottom: 0.1em;
+  }
+  .link-quiet {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+    padding-bottom: 0.1em;
+  }
+  @media (hover: hover) {
+    html.motion .link:hover {
+      animation: redraw 0.7s var(--ease-in-out);
+    }
+    html.motion .link-quiet {
+      transition: background-size 0.45s var(--ease-out);
+    }
+    html.motion .link-quiet:hover {
+      background-size: 100% 1px;
+    }
+  }
+  html:not(.motion) .link-quiet:hover {
+    background-size: 100% 1px;
+  }
+  @keyframes redraw {
+    0% { background-size: 100% 1px; background-position: 100% 100%; }
+    45% { background-size: 0% 1px; background-position: 100% 100%; }
+    46% { background-size: 0% 1px; background-position: 0 100%; }
+    100% { background-size: 100% 1px; background-position: 0 100%; }
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0 1rem;
+    border: 1px solid color-mix(in oklab, var(--ink) 30%, transparent);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: border-color 200ms, background-color 200ms, color 200ms;
+  }
+  .chip:hover {
+    border-color: var(--ink);
+  }
+  .chip[aria-pressed='true'] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .chip small {
+    font-size: 0.8125rem;
+    opacity: 0.7;
+  }
+  .chip[aria-pressed='true'] small {
+    opacity: 0.85; /* keeps the count readable on the accent fill */
+  }
+
+  /* A filled-in form field: small label, value written on a dotted line. */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .field dt {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+  .field dd {
+    margin-top: auto; /* values sit on the line, so lines align across a row */
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dashed color-mix(in oklab, var(--ink) 35%, transparent);
+    font-weight: 600;
+  }
+
+  /* ── Header ─────────────────────────────────────────── */
+
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    transition: background-color 300ms, box-shadow 300ms, transform 450ms var(--ease-out);
+  }
+  .site-header.is-scrolled {
+    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 color-mix(in oklab, var(--line) 70%, transparent);
+  }
+  html.motion .site-header.is-hidden {
+    transform: translateY(-100%);
+  }
+  /* backdrop-filter and transform both trap position:fixed children, so drop them while the menu is open. */
+  .site-header[data-menu-open] {
+    backdrop-filter: none;
+    transform: none;
+  }
+
+  /* ── Media frames: every project image sits in a fixed-ratio frame ── */
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+  .frame > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .frame-phones {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4%;
+    padding: 6% 8% 0;
+    background: color-mix(in oklab, var(--accent) 9%, var(--surface));
+  }
+  .phone {
+    position: relative;
+    flex: 0 0 26%;
+    aspect-ratio: 9 / 19.5;
+    overflow: hidden;
+    border: 4px solid var(--ink);
+    border-bottom: 0;
+    border-radius: 1.2rem 1.2rem 0 0;
+    background: var(--surface);
+  }
+  .phone > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  @media (hover: hover) {
+    html.motion .card .frame > img,
+    html.motion .card .phone {
+      transition: transform 0.9s var(--ease-out);
+    }
+    html.motion .card:hover .frame > img {
+      transform: scale(1.035);
+    }
+    html.motion .card:hover .phone {
+      transform: translateY(-3%);
+    }
+  }
+
+  /* ── Horizontal sections ────────────────────────────── */
+
+  .hscroll-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
+    scrollbar-width: none;
+  }
+  .hscroll-viewport::-webkit-scrollbar {
+    display: none;
+  }
+  .hscroll-track {
+    display: flex;
+    width: max-content;
+    gap: clamp(1rem, 2vw, 2rem);
+    /* % resolves against the viewport element (not 100vw, which includes the scrollbar), matching .wrap. */
+    padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
+  }
+  .hscroll-track > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .hscroll-bar {
+    position: relative;
+    height: 2px;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--ink) 15%, transparent);
+  }
+  .hscroll-bar > span {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(var(--progress, 0));
+  }
+  /* Wide screens with motion: the section is pinned and the track is moved by GSAP instead. */
+  .hscroll .h-section {
+    font-size: clamp(2.2rem, 3.9vw, 3.6rem);
+  }
+  @media (min-width: 768px) {
+    /* The header tucks itself away while scrolling down, so a pinned section can use the full height. */
+    html.motion .hscroll {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: clamp(1.5rem, 5svh, 3.5rem) clamp(1.25rem, 3svh, 2.5rem);
+    }
+    html.motion .hscroll .hscroll-viewport {
+      margin-top: clamp(1.5rem, 4svh, 3rem);
+    }
+    html.motion .hscroll .hscroll-meta {
+      margin-top: clamp(1rem, 3svh, 2rem);
+    }
+  }
+  /* Short laptop screens: tighten the pinned sections so header, cards and progress all fit. */
+  @media (min-width: 768px) and (max-height: 820px) {
+    html.motion .hscroll .h-section {
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+    }
+    html.motion .hscroll .lead {
+      font-size: 1.02rem;
+    }
+    html.motion .hscroll .h-section.mt-5 {
+      margin-top: 0.75rem;
+    }
+  }
+  @media (min-width: 768px) {
+    html.motion .hscroll-viewport {
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    html.motion .hscroll-track {
+      will-change: transform;
+    }
+  }
+
+  /* Cursor pill that follows the pointer over case-study cards. */
+  .cursor-pill {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    pointer-events: none;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+}
+
+/* ───────────────────────── Hero ───────────────────────── */
+
+/* In the components layer so Tailwind utilities on the same elements (colours, sizes) still win. */
+@layer components {
+  /* Scattered words and papers must never widen the page (phones would zoom out to fit them). */
+  .hero {
+    overflow-x: clip;
+  }
+  .hero-headline {
+    font-size: clamp(2.4rem, 4.4vw, 4.25rem);
+    line-height: 0.98;
+    font-weight: 760;
+  }
+  .hero-headline .word {
+    position: relative;
+    display: inline-block;
+    font-stretch: 100%;
+    will-change: transform;
+  }
+  /* An invisible copy at the tidy width holds each word's place, so squeezing or stretching the
+     visible word never re-wraps the headline or moves the content below it (no layout shift). */
+  .hero-headline .word::before {
+    content: attr(data-w);
+    content: attr(data-w) / '';
+    visibility: hidden;
+  }
+  .hero-headline .word-ink {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% 0;
+    white-space: nowrap;
+  }
+
+  .board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-rows: minmax(7.25rem, auto);
+  }
+  .board-sheet {
+    position: absolute;
+    inset: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 30px 60px -40px rgb(var(--shadow-rgb) / 0.45);
+  }
+  .panel {
+    --pb: 1;
+    position: relative;
+    padding: 1.1rem 1.2rem;
+    border-color: color-mix(in oklab, var(--line) calc(var(--pb) * 100%), transparent);
+  }
+  .panel-main { grid-column: span 4; grid-row: span 2; border-right-width: 1px; border-bottom-width: 1px; }
+  .panel-queue { grid-column: span 2; grid-row: span 2; border-bottom-width: 1px; }
+  .panel-data { grid-column: span 2; border-right-width: 1px; }
+  .panel-status { grid-column: span 2; border-right-width: 1px; }
+  .panel-history { grid-column: span 2; }
+
+  .face-messy {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /*
+   * Starting state when motion is allowed: fragments are loose papers scattered around the
+   * board, the sheet behind them is not there yet, and the headline words lie at odd angles
+   * in mixed widths. Each element carries its own offsets as custom properties. GSAP animates
+   * every one of these back to the natural layout, which is also the no-JS and reduced-motion view.
+   * If the hero script never reports ready, an inline failsafe adds .is-tidy.
+   */
+  html.motion .hero:not(.is-tidy) .board-sheet {
+    opacity: 0;
+  }
+  html.motion .hero:not(.is-tidy) .panel {
+    --pb: 0;
+    transform: translate(var(--sx, 0), var(--sy, 0)) rotate(var(--sr, 0deg));
+  }
+  html.motion .hero:not(.is-tidy) .face-messy {
+    opacity: 1;
+  }
+  html.motion .hero:not(.is-tidy) .face-clean {
+    opacity: 0;
+  }
+  html.motion .hero:not(.is-tidy) .hero-headline .word {
+    transform: translate(var(--wx, 0), var(--wy, 0)) rotate(var(--wr, 0deg));
+  }
+  html.motion .hero:not(.is-tidy) .hero-headline .word-ink {
+    font-stretch: var(--wdth-messy, 100%);
+  }
+
+  /* Paper fragments used by the messy faces */
+  .paper {
+    position: absolute;
+    background: var(--paper);
+    box-shadow: 0 1px 0 rgb(0 0 0 / 0.04), 0 14px 26px -16px rgb(var(--shadow-rgb) / 0.5);
+    color: #1e2a4a;
+  }
+  .sheet-grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    font-size: 0.72rem;
+  }
+  .sheet-grid > span {
+    border: 1px solid #d7dde0; /* printed on paper: same in both themes */
+    margin: -0.5px;
+    padding: 0.2rem 0.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .bubble {
+    max-width: 85%;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.7rem;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    background: #ffffff;
+    color: #1e2a4a;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 0.08);
+  }
+  .bubble-out {
+    margin-left: auto;
+    background: #dcf3d6;
+  }
+  .note {
+    font-style: italic;
+    font-weight: 600;
+    padding: 0.9rem 0.8rem;
+    line-height: 1.25;
+    color: #1e2a4a;
+  }
+  .stamp {
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--accent);
+    outline: 1.5px solid var(--accent);
+    outline-offset: 3px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    opacity: 0.82;
+    mix-blend-mode: var(--stamp-blend);
+    background: transparent;
+    box-shadow: none;
+  }
+  .receipt {
+    padding: 0.8rem 0.9rem 1.3rem;
+    font-size: 0.78rem;
+    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  }
+
+  @media (max-width: 767px) {
+    .board {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: minmax(6.5rem, auto);
+    }
+    .panel-main { grid-column: span 2; grid-row: span 1; border-right-width: 0; }
+    .panel-queue { grid-column: span 2; grid-row: span 1; }
+    .panel-data { grid-column: span 1; border-bottom-width: 1px; }
+    .panel-status { grid-column: span 1; border-right-width: 0; border-bottom-width: 1px; }
+    .panel-history { grid-column: span 2; }
+  }
+}
+
+@layer components {
+  html:not(.motion) .case-index {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+  }
+  .case-decision {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  }
+  /* Jumping to a section leaves room for the header, which reappears when scrolling up. */
+  main section[id] {
+    scroll-margin-top: var(--header-h);
+  }
+}
+
+@layer base {
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition: background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), color 0.4s var(--ease-out), fill 0.4s, stroke 0.4s !important;
+  }
+}
+
+@layer components {
+  /* Screenshots are light UIs; in the dark theme they sit a touch dimmer so they do not glare. */
+  :root[data-theme='dark'] .frame img {
+    filter: brightness(0.92);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .frame img {
+      filter: brightness(0.92);
+    }
+  }
+  .theme-toggle .icon-sun {
+    display: none;
+  }
+  :root[data-theme='dark'] .theme-toggle .icon-sun {
+    display: block;
+  }
+  :root[data-theme='dark'] .theme-toggle .icon-moon {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .theme-toggle .icon-sun {
+      display: block;
+    }
+    :root:not([data-theme='light']) .theme-toggle .icon-moon {
+      display: none;
+    }
+  }
+}

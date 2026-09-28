@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.env*.local
+next-env.d.ts
+*.tsbuildinfo
+
+# Netlify CLI state (site id, local build output)
+.netlify
+deno.lock
