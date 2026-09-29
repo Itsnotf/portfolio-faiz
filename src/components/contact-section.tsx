@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { profile } from '@/content/profile';
-import { whatsappDisplay, whatsappUrl } from '@/lib/contact';
+import { whatsappUrl } from '@/lib/contact';
 import { WhatsAppIcon } from './whatsapp-icon';
 
 /** The closing call to action, shared by the home page and every service, local, FAQ and article page. */
@@ -39,13 +39,6 @@ export async function ContactSection() {
               <span>{t('whatsapp')}</span>
             </span>
           </a>
-          <p className="mt-4 text-on-invert/80">
-            {t('numberLabel')}{' '}
-            <a href={wa} target="_blank" rel="noreferrer" className="link font-semibold text-on-invert">
-              {whatsappDisplay}
-            </a>
-          </p>
-
           <p className="mt-10 font-semibold text-on-invert/70">{t('emailLabel')}</p>
           <a
             href={`mailto:${profile.email}`}
