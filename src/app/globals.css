@@ -248,6 +248,12 @@
   .section {
     padding-block: clamp(5rem, 11vw, 9rem);
   }
+  /* Phones: less empty scrolling between sections, and headings that take two or three lines instead of five. */
+  @media (max-width: 767px) {
+    .section {
+      padding-block: 3.5rem;
+    }
+  }
 
   /* ── Type ───────────────────────────────────────────── */
 
@@ -417,6 +423,15 @@
     background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
     padding-bottom: 0.1em;
   }
+  /* Small standalone links get a 44px-tall touch area without changing the layout (Fitts's law). */
+  .tap-area {
+    position: relative;
+  }
+  .tap-area::before {
+    content: '';
+    position: absolute;
+    inset: -0.75rem -0.25rem;
+  }
   .link-quiet {
     text-decoration: none;
     background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
@@ -447,7 +462,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    min-height: 2.5rem;
+    min-height: 2.75rem; /* 44px tap target */
     padding: 0 1rem;
     border: 1px solid color-mix(in oklab, var(--ink) 30%, transparent);
     border-radius: 999px;
@@ -605,6 +620,12 @@
   /* Wide screens with motion: the section is pinned and the track is moved by GSAP instead. */
   .hscroll .h-section {
     font-size: clamp(2.2rem, 3.9vw, 3.6rem);
+  }
+  @media (max-width: 767px) {
+    .h-section,
+    .hscroll .h-section {
+      font-size: clamp(2rem, 7.5vw, 2.4rem);
+    }
   }
   @media (min-width: 768px) {
     /* The header tucks itself away while scrolling down, so a pinned section can use the full height. */
@@ -819,16 +840,23 @@
     mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
   }
 
+  /* Phones: the board keeps its idea (a report and an approval, messy then tidy) in two panels instead of five,
+     so it no longer costs a full screen of scrolling. */
   @media (max-width: 767px) {
+    .hero-headline {
+      font-size: 2.15rem;
+    }
     .board {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-rows: minmax(6.5rem, auto);
     }
-    .panel-main { grid-column: span 2; grid-row: span 1; border-right-width: 0; }
-    .panel-queue { grid-column: span 2; grid-row: span 1; }
-    .panel-data { grid-column: span 1; border-bottom-width: 1px; }
-    .panel-status { grid-column: span 1; border-right-width: 0; border-bottom-width: 1px; }
-    .panel-history { grid-column: span 2; }
+    .panel-main { grid-column: span 2; grid-row: span 1; border-right-width: 0; border-bottom-width: 1px; }
+    .panel-status { grid-column: span 2; border-right-width: 0; }
+    .panel-queue,
+    .panel-data,
+    .panel-history {
+      display: none;
+    }
   }
 }
 
@@ -836,6 +864,19 @@
   html:not(.motion) .case-index {
     position: sticky;
     top: calc(var(--header-h) + 1.5rem);
+  }
+  .wa-float {
+    background: #1e2a4a;
+    color: #ffffff;
+    box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.45);
+  }
+  :root[data-theme='dark'] .wa-float {
+    outline: 1px solid rgb(255 255 255 / 0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .wa-float {
+      outline: 1px solid rgb(255 255 255 / 0.18);
+    }
   }
   .case-decision {
     scroll-margin-top: calc(var(--header-h) + 1.5rem);

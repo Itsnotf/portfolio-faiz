@@ -88,7 +88,7 @@ export const principles: Principle[] = [
     },
     example: {
       body: {
-        id: 'Pencarian dan AI Coach di aplikasi beasiswa cukup berjalan di satu database, tanpa layanan tambahan yang bisa gagal saat dipakai.',
+        id: 'Pencarian dan AI Coach di aplikasi beasiswa cukup berjalan di satu tempat penyimpanan data, tanpa layanan tambahan yang bisa gagal saat dipakai.',
         en: 'Search and the AI coach in a scholarship app run in a single database, with no extra service that can fail in use.',
       },
       slug: 'albatros',
@@ -132,7 +132,7 @@ export const principles: Principle[] = [
 export const services: { key: ServiceKey; title: Localized; body: Localized }[] = [
   {
     key: 'systems',
-    title: { id: 'Sistem internal & dashboard', en: 'Internal systems & dashboards' },
+    title: { id: 'Sistem internal & laporan', en: 'Internal systems & reports' },
     body: {
       id: 'Pencatatan, persetujuan, perhitungan, dan laporan harian yang sekarang masih berjalan di Excel, kertas, atau grup chat.',
       en: 'Daily records, approvals, calculations and reports that still run on spreadsheets, paper or group chats.',
@@ -142,24 +142,24 @@ export const services: { key: ServiceKey; title: Localized; body: Localized }[] 
     key: 'apps',
     title: { id: 'Aplikasi web & mobile', en: 'Web & mobile apps' },
     body: {
-      id: 'Portal, pemesanan, dan aplikasi mobile untuk pelanggan atau tim lapangan, terhubung ke data yang sama dengan sistem internal.',
-      en: 'Portals, ordering and mobile apps for customers or field teams, connected to the same data as the internal system.',
+      id: 'Website untuk pelanggan, aplikasi pemesanan, dan aplikasi HP untuk tim lapangan, tersambung ke data yang sama dengan sistem di kantor.',
+      en: 'Customer websites, ordering apps and phone apps for field teams, connected to the same data as the office system.',
     },
   },
   {
     key: 'ai',
     title: { id: 'AI & otomasi yang tepat guna', en: 'AI & automation that earns its place' },
     body: {
-      id: 'Pengenalan wajah, pencarian cerdas, dan pemrosesan data otomatis, dipakai ketika masalahnya memang membutuhkan dan diberi label jujur ketika tidak.',
-      en: 'Face recognition, smart search and automated data processing, used when the problem calls for it and labelled honestly when it does not.',
+      id: 'Pengenalan wajah, pencarian cerdas, dan pekerjaan yang berjalan otomatis. Saya pakai hanya jika memang membantu, dan saya katakan terus terang jika cara biasa sudah cukup.',
+      en: 'Face recognition, smart search and work that runs by itself. I use it only when it genuinely helps, and say so plainly when a simpler way is enough.',
     },
   },
   {
     key: 'fix',
     title: { id: 'Merapikan sistem yang sudah ada', en: 'Fixing systems you already have' },
     body: {
-      id: 'Membangun ulang logika yang sering salah, mendesain ulang antarmuka yang membingungkan, dan menutup celah data tanpa menghentikan operasional.',
-      en: 'Rebuilding logic that keeps getting things wrong, redesigning confusing screens and closing data gaps without stopping operations.',
+      id: 'Memperbaiki perhitungan yang sering salah, merapikan tampilan yang membingungkan, dan menambal data yang bolong tanpa menghentikan pekerjaan sehari-hari.',
+      en: 'Fixing calculations that keep going wrong, tidying confusing screens and filling data gaps without stopping daily work.',
     },
   },
 ];
@@ -170,7 +170,7 @@ export const experience: { period: Localized; role: Localized; org: string; body
     role: { id: 'Software Developer', en: 'Software Developer' },
     org: 'Loranet Technologies PLT',
     body: {
-      id: 'Software developer di perusahaan teknologi asal Malaysia. Saya mempelajari alur sistem yang sudah berjalan, lalu mengembangkan fitur baru untuk aplikasi web dan mobile pada proyek-proyek klien perusahaan.',
+      id: 'Pengembang aplikasi di perusahaan teknologi asal Malaysia. Saya mempelajari cara kerja sistem yang sudah berjalan, lalu menambahkan fitur baru untuk aplikasi web dan HP milik klien perusahaan.',
       en: 'Software developer at a Malaysian technology company. I study how existing systems flow, then build new features for web and mobile applications on the company’s client projects.',
     },
   },
@@ -179,8 +179,8 @@ export const experience: { period: Localized; role: Localized; org: string; body
     role: { id: 'Founder & CEO', en: 'Founder & CEO' },
     org: 'Berkala Digital',
     body: {
-      id: 'Agensi digital kreatif di Palembang yang tetap saya jalankan paralel dengan pekerjaan saya. Saya menentukan arah, menjalankan proyek dan penjualan, serta mengoordinasikan tim kreatif dan tim IT. Tiga klien B2B di tiga bulan pertama.',
-      en: 'Creative digital agency in Palembang that I keep running alongside my job. I set direction, run projects and sales, and coordinate a creative team and an IT team. Three B2B clients in the first three months.',
+      id: 'Agensi digital kreatif di Palembang yang tetap saya jalankan paralel dengan pekerjaan saya. Saya menentukan arah, menjalankan proyek dan penjualan, serta mengoordinasikan tim kreatif dan tim IT. Tiga klien bisnis di tiga bulan pertama.',
+      en: 'Creative digital agency in Palembang that I keep running alongside my job. I set direction, run projects and sales, and coordinate a creative team and an IT team. Three business clients in the first three months.',
     },
   },
   {
@@ -197,7 +197,7 @@ export const experience: { period: Localized; role: Localized; org: string; body
     role: { id: 'Tenaga Pengajar IT', en: 'IT Instructor' },
     org: 'Cyborg Center',
     body: {
-      id: 'Mengajar Laravel dari dasar sampai mahir, dan bekerja bersama engineer senior untuk fitur, debugging, dan kualitas kode.',
+      id: 'Mengajar Laravel, alat untuk membuat aplikasi web, dari dasar sampai mahir, serta membantu engineer senior membangun fitur dan memperbaiki kesalahan program.',
       en: 'Taught Laravel from fundamentals to advanced topics, and worked with senior engineers on features, debugging and code quality.',
     },
   },
@@ -206,7 +206,7 @@ export const experience: { period: Localized; role: Localized; org: string; body
     role: { id: 'Front-end Developer & UI/UX Designer', en: 'Front-end Developer & UI/UX Designer' },
     org: 'SIT Production',
     body: {
-      id: 'Mendesain dan membangun website responsif untuk proyek klien.',
+      id: 'Mendesain dan membangun website yang nyaman dibuka di HP maupun laptop untuk proyek klien.',
       en: 'Designed and built responsive websites for client projects.',
     },
   },

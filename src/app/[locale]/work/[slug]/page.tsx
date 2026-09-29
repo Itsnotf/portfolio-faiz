@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { CaseIndex } from '@/components/case-index';
+import { ContactCta } from '@/components/contact-cta';
 import { JsonLd } from '@/components/json-ld';
 import { ProjectCover } from '@/components/project-cover';
 import { services } from '@/content/services';
@@ -62,12 +63,12 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
         )}
       />
       <header className="wrap pt-[calc(var(--header-h)+2.5rem)] md:pt-[calc(var(--header-h)+4rem)]">
-        <Link href={{ pathname: '/', hash: 'work' }} className="link-quiet text-sm font-semibold text-stempel">
+        <Link href={{ pathname: '/', hash: 'work' }} className="link-quiet tap-area inline-block text-sm font-semibold text-stempel">
           ← {t('back')}
         </Link>
         <div className="grid-12 mt-8">
           <div className="md:col-span-9">
-            <h1 className="text-[clamp(2.8rem,7vw,6rem)] leading-[1.02]" data-split>
+            <h1 className="text-[clamp(2.3rem,7vw,6rem)] leading-[1.02]" data-split>
               {p.title[locale]}
             </h1>
             <p className="lead measure-wide mt-6" data-reveal>
@@ -76,8 +77,9 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             {updated ? <p className="mt-4 text-sm text-tinta-muda">{t('updated', { date: updated })}</p> : null}
           </div>
         </div>
-        <dl className="grid-12 mt-12 gap-y-6" data-reveal>
-          <div className="field md:col-span-3">
+        {/* Role, year and status only. On phones year and status share a row, so the facts fit on one screen. */}
+        <dl className="grid-12 mt-10 gap-x-6 gap-y-6 max-md:grid-cols-2 md:mt-12" data-reveal>
+          <div className="field max-md:col-span-2 md:col-span-5">
             <dt>{t('role')}</dt>
             <dd>{p.role[locale]}</dd>
           </div>
@@ -85,13 +87,9 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             <dt>{t('year')}</dt>
             <dd>{p.year}</dd>
           </div>
-          <div className="field md:col-span-3">
+          <div className="field md:col-span-5">
             <dt>{t('status')}</dt>
             <dd>{p.status[locale]}</dd>
-          </div>
-          <div className="field md:col-span-4">
-            <dt>{t('stack')}</dt>
-            <dd>{p.stack.join(', ')}</dd>
           </div>
         </dl>
       </header>
@@ -204,6 +202,14 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
               </ul>
             </section>
           ) : null}
+
+          {/* For technical readers, kept out of the way of clients. */}
+          <section aria-labelledby="stack" className="border-t border-garis pt-6">
+            <h2 id="stack" className="text-sm font-semibold text-tinta-muda [font-family:inherit]">
+              {t('stack')}
+            </h2>
+            <p className="mt-2 text-sm text-tinta-muda">{p.stack.join(', ')}</p>
+          </section>
         </div>
 
         <aside className="hidden md:col-span-3 md:col-start-10 md:block">
@@ -211,7 +217,9 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
         </aside>
       </div>
 
-      <div className="wrap mt-24">
+      <ContactCta />
+
+      <div className="wrap mt-16 md:mt-24">
         <Link href={{ pathname: '/work/[slug]', params: { slug: next.slug } }} className="card group block rounded-[20px] border border-garis bg-lembar p-6 no-underline md:p-10" data-cursor={t('next')}>
           <p className="eyebrow">{t('next')}</p>
           <p className="mt-4 flex items-end justify-between gap-6 font-display text-[clamp(2.4rem,6vw,5rem)] font-bold leading-none">

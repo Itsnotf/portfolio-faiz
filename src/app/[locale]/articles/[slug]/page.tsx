@@ -105,7 +105,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
                 {t('articles.author')}
               </h2>
               <p className="mt-3 text-tinta-muda">{profile.bio[locale]}</p>
-              <Link href={{ pathname: '/', hash: 'about' }} className="link mt-4 inline-block text-sm font-semibold text-stempel">
+              <Link href={{ pathname: '/', hash: 'about' }} className="link tap-area mt-4 inline-block text-sm font-semibold text-stempel">
                 {t('articles.authorMore')}
               </Link>
             </aside>
@@ -129,7 +129,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
                   </li>
                 ))}
               </ul>
-              <Link href="/articles" className="link mt-6 inline-block text-sm font-semibold text-stempel">
+              <Link href="/articles" className="link tap-area mt-6 inline-block text-sm font-semibold text-stempel">
                 {t('articles.all')}
               </Link>
             </div>

@@ -17,11 +17,48 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   setRequestLocale(locale);
   const t = await getTranslations();
 
-
   return (
     <>
       <JsonLd data={graph(website(locale), person(locale), professionalService(locale))} />
       <Hero />
+
+      {/* Services straight after the opening: what a visitor most needs to know comes first (serial position). */}
+      <section id="services" className="section border-t border-garis" aria-labelledby="services-title">
+        <div className="wrap">
+          <div className="grid-12 items-end gap-y-6">
+            <div className="md:col-span-7">
+              <p className="eyebrow">{t('servicesSection.eyebrow')}</p>
+              <h2 id="services-title" className="h-section mt-5" data-split>
+                {t('servicesSection.title')}
+              </h2>
+            </div>
+            <p className="lead md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9" data-reveal>
+              {t('servicesSection.intro')}
+            </p>
+          </div>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((s, i) => (
+              <li key={s.key} data-reveal={i * 0.08}>
+                <article className="card relative flex h-full flex-col rounded-[20px] border border-garis bg-lembar p-5 md:p-6">
+                  <h3 className="font-display text-xl font-bold">
+                    <Link
+                      href={{ pathname: '/services/[slug]', params: { slug: serviceByKey(s.key).slug[locale] } }}
+                      className="no-underline after:absolute after:inset-0 after:rounded-[20px] after:content-['']"
+                    >
+                      {s.title[locale]}
+                    </Link>
+                  </h3>
+                  <p className="mt-2 text-[0.975rem] text-tinta-muda">{s.body[locale]}</p>
+                  <span aria-hidden="true" className="link mt-auto self-start pt-4 text-sm font-semibold text-stempel">
+                    {t('about.more')}
+                  </span>
+                </article>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <ApproachSection locale={locale} />
       <CaseGallery locale={locale} />
       <ArchiveSection />
@@ -51,31 +88,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             </div>
           </div>
 
-          <div id="services" className="scroll-mt-[var(--header-h)] pt-20">
-            <h3 className="text-2xl">{t('about.services')}</h3>
-            <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {services.map((s, i) => (
-                <li key={s.key} data-reveal={i * 0.08}>
-                  <article className="card relative flex h-full flex-col rounded-[20px] border border-garis bg-lembar p-6">
-                    <h4 className="font-display text-xl font-bold">
-                      <Link
-                        href={{ pathname: '/services/[slug]', params: { slug: serviceByKey(s.key).slug[locale] } }}
-                        className="no-underline after:absolute after:inset-0 after:rounded-[20px] after:content-['']"
-                      >
-                        {s.title[locale]}
-                      </Link>
-                    </h4>
-                    <p className="mt-2 text-[0.975rem] text-tinta-muda">{s.body[locale]}</p>
-                    <span aria-hidden="true" className="link mt-auto self-start pt-4 text-sm font-semibold text-stempel">
-                      {t('about.more')}
-                    </span>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="grid-12 mt-20 gap-y-14">
+          <div className="grid-12 mt-16 gap-y-14 md:mt-20">
             <div className="md:col-span-7">
               <h3 className="text-2xl">{t('about.experience')}</h3>
               <ol className="mt-6 border-l-2 border-tinta/15">

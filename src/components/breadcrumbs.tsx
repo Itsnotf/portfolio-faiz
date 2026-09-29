@@ -16,7 +16,7 @@ export function Breadcrumbs({ trail, label }: { trail: { name: string; href?: Li
               </span>
             ) : null}
             {c.href && i < trail.length - 1 ? (
-              <Link href={c.href} className="link-quiet text-stempel">
+              <Link href={c.href} className="link-quiet tap-area inline-block text-stempel">
                 {c.name}
               </Link>
             ) : (

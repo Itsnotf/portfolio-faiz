@@ -6,11 +6,13 @@ import { ContactSection } from '@/components/contact-section';
 import { FaqList } from '@/components/faq-list';
 import { JsonLd } from '@/components/json-ld';
 import { ProjectCard } from '@/components/project-card';
+import { WhatsAppIcon } from '@/components/whatsapp-icon';
 import { principles } from '@/content/profile';
 import { published, serviceBySlug, services, summary } from '@/content/services';
 import { projects } from '@/content/work';
 import { Link } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
+import { whatsappUrl } from '@/lib/contact';
 import { pageMetadata, type Href } from '@/lib/seo';
 import { breadcrumb, faqPage, graph, serviceEntity } from '@/lib/structured-data';
 
@@ -137,7 +139,7 @@ export default async function ServicePage({ params }: { params: Params }) {
               <h2 id="process-title" className="text-3xl" data-split>
                 {t('service.process')}
               </h2>
-              <Link href={{ pathname: '/', hash: 'approach' }} className="link mt-4 inline-block text-sm font-semibold text-stempel">
+              <Link href={{ pathname: '/', hash: 'approach' }} className="link tap-area mt-4 inline-block text-sm font-semibold text-stempel">
                 {t('service.processLink')}
               </Link>
             </div>
@@ -170,6 +172,11 @@ export default async function ServicePage({ params }: { params: Params }) {
                 ))}
               </ul>
               <p className="measure-wide mt-6 text-tinta-muda">{t('service.costNote')}</p>
+              {/* The cost question is where a visitor is closest to deciding, so the next step sits right here. */}
+              <a href={whatsappUrl(t('contact.waMessage'))} target="_blank" rel="noreferrer" className="btn btn-primary mt-5">
+                <WhatsAppIcon />
+                {t('service.costCta')}
+              </a>
             </div>
           </div>
         </section>

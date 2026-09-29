@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { archive, PROBLEMS, type Problem, type Project } from '@/content/work';
 import type { Locale } from '@/i18n/routing';
@@ -9,6 +9,9 @@ import { ProjectCard } from './project-card';
 
 type Filter = Problem | 'all';
 
+/** Cards shown on phones before the visitor asks for more (choice overload, cognitive load). */
+const PREVIEW = 3;
+
 export function ArchiveSection() {
   const t = useTranslations('archive');
   const locale = useLocale() as Locale;
@@ -16,6 +19,9 @@ export function ArchiveSection() {
   const flipState = useRef<Flip.FlipState | null>(null);
   const mounted = useRef(false);
   const [filter, setFilter] = useState<Filter>('all');
+  // Phones start with a short preview; wider screens always show everything.
+  const [expanded, setExpanded] = useState(false);
+  const list = useRef<HTMLUListElement>(null);
 
   const visible = (p: Project) => filter === 'all' || p.problems.includes(filter);
   const used = PROBLEMS.filter((k) => archive.some((p) => p.problems.includes(k)));
@@ -48,6 +54,13 @@ export function ArchiveSection() {
     { dependencies: [filter], scope: root },
   );
 
+  // Revealing the rest of the list changes the page height, and keyboard users land on the first new card.
+  useEffect(() => {
+    if (!expanded) return;
+    ScrollTrigger.refresh();
+    (list.current?.children[PREVIEW] as HTMLElement | undefined)?.focus();
+  }, [expanded]);
+
   return (
     <section ref={root} id="archive" aria-labelledby="archive-title" className="section border-t border-garis">
       <div className="wrap">
@@ -65,7 +78,7 @@ export function ArchiveSection() {
           </p>
         </div>
 
-        <div role="group" aria-label={t('filterLabel')} className="mt-12 flex flex-wrap gap-2">
+        <div role="group" aria-label={t('filterLabel')} className={`mt-12 flex flex-wrap gap-2 ${expanded ? '' : 'max-md:hidden'}`}>
           {(['all', ...used] as Filter[]).map((f) => (
             <button key={f} type="button" aria-pressed={filter === f} onClick={() => choose(f)} className="chip">
               {t(f)} <small>{count(f)}</small>
@@ -76,9 +89,15 @@ export function ArchiveSection() {
           {t('count', { count: archive.filter(visible).length })}
         </p>
 
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {archive.map((p) => (
-            <li key={p.slug} data-flip-id={p.slug} hidden={!visible(p)}>
+        <ul ref={list} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {archive.map((p, i) => (
+            <li
+              key={p.slug}
+              data-flip-id={p.slug}
+              hidden={!visible(p)}
+              tabIndex={-1}
+              className={`outline-none ${!expanded && i >= PREVIEW ? 'max-md:hidden' : ''}`}
+            >
               <ProjectCard
                 project={p}
                 locale={locale}
@@ -89,6 +108,11 @@ export function ArchiveSection() {
             </li>
           ))}
         </ul>
+        {expanded ? null : (
+          <button type="button" onClick={() => setExpanded(true)} className="btn btn-secondary mt-8 w-full justify-center md:hidden">
+            {t('showAll', { count: archive.length - PREVIEW })}
+          </button>
+        )}
       </div>
     </section>
   );

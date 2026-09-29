@@ -7,8 +7,8 @@ import { LanguageSwitch } from './language-switch';
 import { MobileNav, type NavLink } from './mobile-nav';
 import { ThemeToggle } from './theme-toggle';
 
-/** Home-page sections in the main navigation; "archive" only shows on wide screens where there is room. */
-const SECTIONS = ['services', 'approach', 'work', 'archive', 'about'] as const;
+/** Home-page sections in the main navigation. The archive is part of "Projects", so it has no entry of its own. */
+const SECTIONS = ['services', 'approach', 'work', 'about'] as const;
 
 export async function SiteHeader() {
   const t = await getTranslations('nav');
@@ -20,13 +20,13 @@ export async function SiteHeader() {
     <header id="site-header" className="site-header">
       <HeaderBehavior />
       <div className="wrap flex items-center justify-between gap-6">
-        <Link href="/" className="font-display text-base font-bold leading-[1.1] no-underline [font-stretch:105%] sm:whitespace-nowrap sm:text-lg sm:[font-stretch:118%]">
+        <Link href="/" className="tap-area font-display text-base font-bold leading-[1.1] no-underline [font-stretch:105%] sm:whitespace-nowrap sm:text-lg sm:[font-stretch:118%]">
           Faiz Aflah <br className="sm:hidden" />
           Hafizuddin
         </Link>
         <nav aria-label={t('main')} className="hidden items-center gap-6 text-[0.95rem] lg:flex">
           {links.map((l) => (
-            <Link key={l.key} href={l.href} className={`link-quiet ${l.key === 'archive' ? 'hidden xl:inline' : ''}`}>
+            <Link key={l.key} href={l.href} className="link-quiet">
               {l.label}
             </Link>
           ))}

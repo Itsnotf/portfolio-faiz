@@ -114,7 +114,7 @@ export default async function PalembangPage({ params }: { params: Params }) {
               </h2>
               <div className="md:col-span-8">
                 <FaqList items={local.faq} locale={locale} />
-                <Link href="/faq" className="link mt-6 inline-block font-semibold text-stempel">
+                <Link href="/faq" className="link tap-area mt-6 inline-block font-semibold text-stempel">
                   {t('nav.faq')}
                 </Link>
               </div>

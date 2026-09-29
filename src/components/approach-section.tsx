@@ -47,6 +47,7 @@ const ILLUSTRATIONS = [
 
 export async function ApproachSection({ locale }: { locale: Locale }) {
   const t = await getTranslations('approach');
+  const tu = await getTranslations('ui');
 
   const header = (
     <div className="grid-12 items-end gap-y-6">
@@ -65,7 +66,7 @@ export async function ApproachSection({ locale }: { locale: Locale }) {
   );
 
   return (
-    <HorizontalScroller id="approach" labelledBy="approach-title" header={header} count={principles.length}>
+    <HorizontalScroller id="approach" labelledBy="approach-title" header={header} count={principles.length} hint={tu('swipe')}>
       {principles.map((p, i) => (
         <li key={p.title.en} className="w-[min(30rem,84vw)]">
           <article className="flex h-full flex-col rounded-[20px] border border-garis bg-lembar p-6 md:p-7 short:py-5">
@@ -81,7 +82,7 @@ export async function ApproachSection({ locale }: { locale: Locale }) {
               <div className="border-t border-dashed border-tinta/30 pt-4 short:pt-3">
                 <p className="text-sm font-semibold text-stempel">{t('example')}</p>
                 <p className="mt-2 text-[0.925rem] short:mt-1 short:text-[0.875rem] short:leading-normal">{p.example.body[locale]}</p>
-                <Link href={{ pathname: '/work/[slug]', params: { slug: p.example.slug }, hash: p.example.decision }} className="link mt-3 inline-block text-sm font-semibold short:mt-2">
+                <Link href={{ pathname: '/work/[slug]', params: { slug: p.example.slug }, hash: p.example.decision }} className="link tap-area mt-3 inline-block text-sm font-semibold short:mt-2">
                   {t('see')} →
                 </Link>
               </div>

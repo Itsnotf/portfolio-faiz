@@ -5,7 +5,7 @@
   },
   "nav": {
     "approach": "How I work",
-    "work": "Case studies",
+    "work": "Projects",
     "archive": "Archive",
     "about": "About",
     "contact": "Contact",
@@ -28,7 +28,8 @@
   "hero": {
     "hint": "Scroll to tidy up",
     "primary": "Discuss your project",
-    "secondary": "See how I work"
+    "secondary": "See how I work",
+    "label": "Apps and systems for business operations"
   },
   "fragments": {
     "sheetTitle": "report FINAL (3).xlsx",
@@ -69,18 +70,18 @@
     "see": "See the decision"
   },
   "work": {
-    "eyebrow": "Case studies",
+    "eyebrow": "Projects",
     "title": "The decisions behind systems people use",
-    "intro": "Each case study explains the problem, its constraints, and the reasoning behind every important decision.",
+    "intro": "Each project explains the problem, the situation around it, and the reasoning behind its important decisions.",
     "problem": "The problem",
-    "decisions": "Key decisions",
-    "read": "Read the case study",
+    "decisions": "Important decisions",
+    "read": "See the project",
     "cursor": "Read"
   },
   "archive": {
-    "eyebrow": "Archive",
+    "eyebrow": "More projects",
     "title": "Other problems I have solved",
-    "intro": "Smaller projects, grouped by the kind of problem they solve. The diagram on each card shows how I structured the data.",
+    "intro": "Smaller projects, grouped by the kind of problem they solve.",
     "filterLabel": "Filter by kind of problem",
     "all": "All",
     "rules": "Calculations & business rules",
@@ -89,14 +90,14 @@
     "ai": "Artificial intelligence (AI)",
     "public": "Public-facing platforms",
     "decision": "Decision",
-    "count": "{count} projects"
+    "count": "{count} projects",
+    "showAll": "Show {count} more projects"
   },
   "about": {
     "eyebrow": "About",
     "title": "An engineer who has also run a business",
-    "body1": "I’m Faiz, a software engineer in Palembang. I started with front-end work and UI design, taught Laravel, and kept going until I could build a system end to end, from the database, API and interface to the parts that need machine learning.",
-    "body2": "I currently work as a software developer at Loranet Technologies PLT, a technology company in Malaysia, while still running Berkala Digital, the agency I founded in 2025, where I lead the creative and IT teams. Running a business taught me something engineers often learn late, which is that software is only finished when the people using it trust it.",
-    "services": "What I can build for you",
+    "body1": "I’m Faiz, based in Palembang. I build apps and systems from the first conversation to the day they are in use, from screens that are easy to understand and data that stays tidy to smart features like face recognition when they are genuinely needed.",
+    "body2": "I currently work as an app developer at Loranet Technologies PLT, a technology company in Malaysia, while still running Berkala Digital, the agency I founded in 2025, where I lead the creative and IT teams. Running a business taught me something app builders often learn late, which is that an app is only finished when the people using it trust it.",
     "experience": "Experience",
     "education": "Education",
     "recognition": "Recognition",
@@ -114,27 +115,31 @@
     "whatsapp": "Chat on WhatsApp",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "cv": "Download CV (PDF)"
+    "cv": "Download CV (PDF)",
+    "numberLabel": "WhatsApp number",
+    "waMessage": "Hi Faiz, I would like to ask about an app for my business.",
+    "float": "Chat on WhatsApp",
+    "similarTitle": "Facing a similar problem?",
+    "similarBody": "Tell me about it on WhatsApp or by email, no technical language needed."
   },
   "case": {
-    "back": "All case studies",
+    "back": "All projects",
     "problem": "The problem",
     "role": "Role",
     "year": "Year",
     "status": "Status",
-    "stack": "Built with",
-    "context": "Context and constraints",
-    "decisions": "Key decisions",
+    "stack": "Technology used",
+    "context": "Background",
+    "decisions": "Important decisions",
     "state": "Where it stands",
     "reflection": "Looking back",
-    "sample": "Screenshots use sample data. Names and figures are fictional.",
-    "next": "Next case study",
+    "sample": "Images use sample data to protect client confidentiality.",
+    "next": "Next project",
     "index": "On this page",
     "updated": "Updated {date}",
     "related": "Related services"
   },
   "footer": {
-    "built": "Built with Next.js and GSAP.",
     "top": "Back to top",
     "services": "Services",
     "more": "More"
@@ -147,11 +152,12 @@
     "process": "How I work",
     "processLink": "See a real example of each step",
     "cost": "What affects the cost",
-    "costNote": "Every project is different, so estimates come once your needs are understood. Tell me about it by email or WhatsApp.",
+    "costNote": "Every project is different, so estimates come once your needs are understood.",
     "faq": "Frequently asked questions",
     "other": "Other services",
-    "readCase": "Read the case study",
-    "updated": "Updated {date}"
+    "readCase": "See the project",
+    "updated": "Updated {date}",
+    "costCta": "Ask about cost on WhatsApp"
   },
   "local": {
     "eyebrow": "Palembang & South Sumatra",
@@ -183,5 +189,13 @@
     "author": "About the author",
     "authorMore": "See the full profile",
     "all": "All articles"
+  },
+  "servicesSection": {
+    "eyebrow": "Services",
+    "title": "What I can build for you",
+    "intro": "For shops, distributors, service companies and institutions whose daily work still runs on spreadsheets, paper or group chats."
+  },
+  "ui": {
+    "swipe": "Swipe to see more"
   }
 }

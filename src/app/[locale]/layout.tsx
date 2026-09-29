@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
 import { SiteHeader } from '@/components/site-header';
+import { WhatsAppFloat } from '@/components/whatsapp-float';
 import { SiteFooter } from '@/components/site-footer';
 import { SmootherInit } from '@/components/motion/smooth-scroll';
 import { PageMotion } from '@/components/motion/page-motion';
@@ -106,6 +107,8 @@ export default async function LocaleLayout({ children, params }: { children: Rea
               <PageMotion />
             </div>
           </div>
+          {/* Fixed like the header, so it lives outside the smooth-scroll content. */}
+          <WhatsAppFloat />
         </NextIntlClientProvider>
         {/* Only on Vercel: shows visits referred by chatgpt.com, perplexity.ai, gemini and search engines. */}
         {process.env.VERCEL ? <Analytics /> : null}

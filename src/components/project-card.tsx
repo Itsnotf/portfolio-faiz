@@ -14,15 +14,19 @@ interface Props {
 
 /**
  * One project as a card: cover in a fixed 16:10 frame, category, title, the client's problem and the key decision.
- * Case studies link to their page; archive projects show their data diagram instead of a screenshot.
+ * Case studies link to their page and show a screenshot. Archive projects show their data diagram on wider screens
+ * only, because on a phone it adds a screen of scrolling without telling a non-technical reader much. The list of
+ * technologies lives on the case study page, not on cards meant for clients.
  * No hooks, so it renders in both the client archive section and server pages.
  */
 export function ProjectCard({ project: p, locale, category, labels, sizes }: Props) {
   const isCase = Boolean(p.caseStudy);
   return (
     <article className="card relative flex h-full flex-col rounded-[20px] border border-garis bg-lembar p-3">
-      <ProjectCover project={p} locale={locale} prefer={isCase ? 'shot' : 'diagram'} sizes={sizes} diagramLabel={labels.diagram} />
-      <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
+      <div className={isCase ? undefined : 'max-md:hidden'}>
+        <ProjectCover project={p} locale={locale} prefer={isCase ? 'shot' : 'diagram'} sizes={sizes} diagramLabel={labels.diagram} />
+      </div>
+      <div className={`flex flex-1 flex-col px-3 pb-3 ${isCase ? 'pt-5' : 'pt-3 md:pt-5'}`}>
         <p className="text-sm font-semibold text-stempel">{category}</p>
         <h3 className="mt-2 text-2xl">
           {isCase ? (
@@ -43,9 +47,8 @@ export function ProjectCard({ project: p, locale, category, labels, sizes }: Pro
             <p className="mt-1 text-[0.95rem]">{p.keyDecision[locale]}</p>
           </div>
         ) : null}
-        <p className="mt-auto pt-5 text-sm text-tinta-muda">{p.stack.join(', ')}</p>
         {isCase ? (
-          <span aria-hidden="true" className="link mt-3 self-start text-sm font-semibold text-stempel">
+          <span aria-hidden="true" className="link mt-auto self-start pt-5 text-sm font-semibold text-stempel">
             {labels.readCase}
           </span>
         ) : null}

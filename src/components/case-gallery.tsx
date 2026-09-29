@@ -7,6 +7,7 @@ import { ProjectCover } from './project-cover';
 
 export async function CaseGallery({ locale }: { locale: Locale }) {
   const t = await getTranslations('work');
+  const tu = await getTranslations('ui');
   const ta = await getTranslations('archive');
 
   const header = (
@@ -26,7 +27,7 @@ export async function CaseGallery({ locale }: { locale: Locale }) {
   );
 
   return (
-    <HorizontalScroller id="work" labelledBy="work-title" header={header} count={caseStudies.length} className="border-t border-garis">
+    <HorizontalScroller id="work" labelledBy="work-title" header={header} count={caseStudies.length} hint={tu('swipe')} className="border-t border-garis">
       {caseStudies.map((p, i) => (
         <li key={p.slug} className="w-[min(68rem,88vw,140svh)]">
           <article

@@ -59,7 +59,7 @@ export default async function FaqPage({ params }: { params: Params }) {
               <ul className="mt-3 space-y-2">
                 {services.map((s) => (
                   <li key={s.key}>
-                    <Link href={{ pathname: '/services/[slug]', params: { slug: s.slug[locale] } }} className="link-quiet text-stempel">
+                    <Link href={{ pathname: '/services/[slug]', params: { slug: s.slug[locale] } }} className="link-quiet tap-area inline-block text-stempel">
                       {s.name[locale]}
                     </Link>
                   </li>

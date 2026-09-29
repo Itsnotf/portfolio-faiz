@@ -120,7 +120,7 @@ export const services: Service[] = [
       {
         q: { id: 'Aplikasinya untuk Android atau iOS?', en: 'Is the app for Android or iOS?' },
         a: {
-          id: 'Keduanya. Aplikasi mobile saya bangun dengan React Native (Expo), jadi satu kode bisa dipakai untuk Android dan iOS.',
+          id: 'Keduanya. Aplikasinya dibuat sekali lalu bisa dipasang di Android maupun iPhone, jadi tidak perlu membuat dua kali.',
           en: 'Both. I build mobile apps with React Native (Expo), so one codebase runs on Android and iOS.',
         },
         confirmed: true,
@@ -136,7 +136,7 @@ export const services: Service[] = [
       {
         q: { id: 'Siapa yang membuat desain tampilannya?', en: 'Who designs the screens?' },
         a: {
-          id: 'Saya sendiri. Saya memulai karier dari desain UI dan front-end, jadi tampilan dan logikanya dikerjakan oleh orang yang sama.',
+          id: 'Saya sendiri. Saya memulai karier dari mendesain tampilan aplikasi, jadi tampilan dan cara kerjanya dikerjakan oleh orang yang sama.',
           en: 'I do. I started my career in UI design and front-end work, so the screens and the logic are built by the same person.',
         },
         confirmed: true,
@@ -222,7 +222,7 @@ export const services: Service[] = [
     ],
     faq: [
       {
-        q: { id: 'Bisakah memperbaiki aplikasi yang dibuat developer lain?', en: 'Can you fix an app another developer built?' },
+        q: { id: 'Bisakah memperbaiki aplikasi buatan orang lain?', en: 'Can you fix an app another developer built?' },
         a: {
           id: 'Bisa. Pekerjaan saya sehari-hari termasuk membaca alur sistem yang sudah berjalan lalu mengembangkan fitur di atasnya. Langkah pertama selalu memahami kode dan datanya sebelum mengubah apa pun.',
           en: 'Yes. My daily work includes reading how existing systems flow and building features on top of them. The first step is always understanding the code and the data before changing anything.',
@@ -264,7 +264,7 @@ export const local = {
   } satisfies Localized,
   h1: { id: 'Jasa pembuatan aplikasi dan sistem informasi di Palembang', en: 'Software developer based in Palembang, Indonesia' } satisfies Localized,
   lead: {
-    id: 'Saya software engineer yang berbasis di Palembang. Saya membangun sistem informasi, aplikasi web, dan aplikasi mobile untuk usaha dan instansi di Palembang dan Sumatera Selatan, dan juga menerima proyek dari kota lain maupun luar negeri secara jarak jauh.',
+    id: 'Saya software engineer, pembuat aplikasi dan sistem, yang berbasis di Palembang. Saya membangun sistem informasi, aplikasi web, dan aplikasi mobile untuk usaha dan instansi di Palembang dan Sumatera Selatan, dan juga menerima proyek dari kota lain maupun luar negeri secara jarak jauh.',
     en: 'I am a software engineer based in Palembang. I build business systems, web apps and mobile apps for companies and institutions in Palembang and South Sumatra, and I also take on projects from other cities and abroad, working remotely.',
   } satisfies Localized,
   proof: ['budaya-sumsel', 'face-recognition-attendance'],

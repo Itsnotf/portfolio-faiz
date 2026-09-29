@@ -80,6 +80,9 @@ export function Hero() {
     <section ref={root} className="hero relative flex items-center pb-16 pt-[calc(var(--header-h)+2rem)] lg:min-h-svh lg:pb-10">
       <div className="wrap grid-12 items-center gap-y-12">
         <div className="md:col-span-12 lg:col-span-7">
+          {/* A plain description above the headline, so a first-time visitor knows what this is without a sales pitch. */}
+          {/* Sits above the scattered words, so it stays readable while the headline is still messy. */}
+          <p className="eyebrow relative z-10 -ml-3 mb-4 w-fit rounded-full bg-kertas/90 px-3 py-1">{th('label')}</p>
           <h1 className="hero-headline">
             {words.map((w, i) => (
               <Fragment key={i}>

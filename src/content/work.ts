@@ -87,7 +87,7 @@ export const projects: Project[] = [
     },
     problems: ['rules', 'ai'],
     year: '2026',
-    role: { en: 'Team lead and sole developer', id: 'Ketua tim dan satu-satunya developer' },
+    role: { en: 'Team lead and sole developer', id: 'Ketua tim dan satu-satunya pengembang aplikasi' },
     status: { en: 'In development, national finalist', id: 'Dalam pengembangan, finalis nasional' },
     stack: ['Expo (React Native)', 'NestJS', 'Next.js', 'PostgreSQL + pgvector', 'Prisma', 'Turborepo'],
     shots: [
@@ -103,7 +103,7 @@ export const projects: Project[] = [
         },
         {
           en: 'The constraints were one developer, a competition deadline, and personal data regulated by Indonesia’s data protection law, including minors and family income. Every technical decision is written down with its reasoning, in a decision log that now holds 84 decisions.',
-          id: 'Batasannya adalah satu developer, tenggat lomba, dan data pribadi yang diatur UU PDP, termasuk data anak di bawah umur dan penghasilan keluarga. Setiap keputusan teknis dicatat beserta alasannya, dalam catatan keputusan yang kini berisi 84 keputusan.',
+          id: 'Batasannya adalah satu orang pengembang, tenggat lomba, dan data pribadi yang diatur UU PDP, termasuk data anak di bawah umur dan penghasilan keluarga. Setiap keputusan teknis dicatat beserta alasannya, dalam catatan keputusan yang kini berisi 84 keputusan.',
         },
       ],
       stats: [
@@ -118,15 +118,15 @@ export const projects: Project[] = [
           title: { en: 'One source of data for the student app and the admin', id: 'Satu sumber data untuk aplikasi siswa dan admin' },
           body: {
             en: 'The student mobile app and the admin dashboard get their data from the same server and check it with the same rules, so the two can never show different versions of the data.',
-            id: 'Aplikasi mobile untuk siswa dan dashboard admin mengambil data dari server yang sama dan memeriksanya dengan aturan yang sama, jadi keduanya tidak mungkin menampilkan versi data yang berbeda.',
+            id: 'Aplikasi mobile untuk siswa dan halaman admin mengambil data dari sumber yang sama dan memeriksanya dengan aturan yang sama, jadi keduanya tidak mungkin menampilkan versi data yang berbeda.',
           },
         },
         {
           id: 'one-database',
-          title: { en: 'One database for everything', id: 'Satu database untuk semuanya' },
+          title: { en: 'One database for everything', id: 'Satu tempat data untuk semuanya' },
           body: {
             en: 'Ordinary search and the meaning-based search behind the AI Coach both run in one database, with no extra service. For a one-developer team, every extra system is one more thing that can break during a live demo.',
-            id: 'Pencarian biasa dan pencarian berdasarkan makna untuk AI Coach sama-sama berjalan di satu database, tanpa layanan tambahan. Untuk tim dengan satu developer, setiap sistem tambahan adalah satu hal lagi yang bisa rusak saat demo.',
+            id: 'Pencarian biasa dan pencarian berdasarkan makna untuk AI Coach sama-sama berjalan di satu tempat penyimpanan data, tanpa layanan tambahan. Untuk tim dengan satu pengembang, setiap sistem tambahan adalah satu hal lagi yang bisa rusak saat demo.',
           },
         },
         {
@@ -183,7 +183,7 @@ export const projects: Project[] = [
     },
     problems: ['ai', 'workflow'],
     year: '2026',
-    role: { en: 'Software engineer, sole developer', id: 'Software engineer, satu-satunya developer' },
+    role: { en: 'Software engineer, sole developer', id: 'Satu-satunya pengembang aplikasi' },
     status: { en: 'Built', id: 'Selesai dibangun' },
     stack: ['Laravel', 'Inertia + React', 'Python', 'face_recognition', 'OpenCV'],
     shots: [
@@ -221,7 +221,7 @@ export const projects: Project[] = [
           title: { en: 'Two layers against double attendance', id: 'Dua lapis pengaman dari absen ganda' },
           body: {
             en: 'The face-recognition program remembers who it has already reported, and the database refuses a second record for the same person in the same session.',
-            id: 'Program pengenal wajah mengingat siapa yang sudah dilaporkan, dan database menolak catatan kedua untuk orang yang sama di sesi yang sama.',
+            id: 'Program pengenal wajah mengingat siapa yang sudah dilaporkan, dan sistem menolak catatan kedua untuk orang yang sama di sesi yang sama.',
           },
         },
         {
@@ -258,7 +258,7 @@ export const projects: Project[] = [
     },
     problems: ['rules'],
     year: '2026',
-    role: { en: 'Sole developer', id: 'Satu-satunya developer' },
+    role: { en: 'Sole developer', id: 'Satu-satunya pengembang aplikasi' },
     status: { en: 'In use by a client', id: 'Dipakai klien' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript', 'Tailwind CSS'],
     shots: [
@@ -329,7 +329,7 @@ export const projects: Project[] = [
     slug: 'shareholder-directives',
     title: { id: 'Tindak lanjut arahan rapat pemegang saham', en: 'Follow-up on shareholder meeting directives' },
     problem: {
-      id: 'Arahan dari rapat pemegang saham harus ditindaklanjuti setiap kompartemen, dan setiap laporan tindak lanjut diperiksa berjenjang sebelum dinyatakan sesuai.',
+      id: 'Arahan dari rapat pemegang saham harus ditindaklanjuti setiap bagian perusahaan, dan setiap laporan tindak lanjut diperiksa berjenjang sebelum dinyatakan sesuai.',
       en: 'Directives from a shareholders’ meeting had to be followed up by every division, and each follow-up report went through a tiered review before it was accepted.',
     },
     summary: { id: 'Pemantauan tindak lanjut arahan rapat pemegang saham untuk sebuah BUMN.', en: 'Tracking follow-ups on shareholder meeting directives for a state-owned company.' },
@@ -339,14 +339,14 @@ export const projects: Project[] = [
     },
     problems: ['workflow'],
     year: '2024',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 10', 'Blade', 'Stisla'],
     shots: [],
     diagram: {
       nodes: [
         { id: 'arahan', label: { id: 'Arahan', en: 'Directive' }, col: 1, row: 0 },
-        { id: 'komp', label: { id: 'Kompartemen', en: 'Division' }, col: 0, row: 0 },
+        { id: 'komp', label: { id: 'Bagian', en: 'Division' }, col: 0, row: 0 },
         { id: 'hasil', label: { id: 'Tindak lanjut', en: 'Follow-up' }, col: 2, row: 0 },
         { id: 'dept', label: { id: 'Departemen', en: 'Department' }, col: 0, row: 1 },
         { id: 'user', label: { id: 'Pegawai', en: 'Staff' }, col: 1, row: 1 },
@@ -375,7 +375,7 @@ export const projects: Project[] = [
     },
     problems: ['workflow'],
     year: '2026',
-    role: { id: 'Satu-satunya developer', en: 'Sole developer' },
+    role: { id: 'Satu-satunya pengembang aplikasi', en: 'Sole developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -409,7 +409,7 @@ export const projects: Project[] = [
     },
     problems: ['workflow'],
     year: '2025',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -451,7 +451,7 @@ export const projects: Project[] = [
     },
     problems: ['rules', 'records'],
     year: '2026',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     // TODO(Faiz): confirm role and status (built for a research project).
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript', 'Recharts'],
@@ -513,7 +513,7 @@ export const projects: Project[] = [
         },
       ],
       status: {
-        id: 'Selesai dibangun, dengan peran Admin, Tata Usaha, dan Kepala Bidang, laporan PDF untuk barang, permintaan, dan pengadaan, serta dashboard yang menandai stok menipis dan kekurangan.',
+        id: 'Selesai dibangun, dengan peran Admin, Tata Usaha, dan Kepala Bidang, laporan PDF untuk barang, permintaan, dan pengadaan, serta halaman ringkasan yang menandai stok menipis dan kekurangan.',
         en: 'Built, with Admin, Administration and Division Head roles, PDF reports for items, requests and procurements, and a dashboard that flags low stock and shortfalls.',
       },
     },
@@ -549,7 +549,7 @@ export const projects: Project[] = [
     },
     problems: ['records'],
     year: '2024',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Expo (React Native)', 'Laravel 11 API'],
     shots: [],
@@ -581,7 +581,7 @@ export const projects: Project[] = [
     },
     problems: ['records'],
     year: '2025',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -617,7 +617,7 @@ export const projects: Project[] = [
     },
     problems: ['records'],
     year: '2025',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'Leaflet', 'Recharts'],
     shots: [],
@@ -649,7 +649,7 @@ export const projects: Project[] = [
     },
     problems: ['records'],
     year: '2025',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'Recharts', 'DomPDF'],
     shots: [],
@@ -681,7 +681,7 @@ export const projects: Project[] = [
     },
     problems: ['ai', 'public'],
     year: '2025',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Laravel 12', 'React 19', 'Python', 'PyTorch', 'Flask'],
     shots: [],
@@ -715,7 +715,7 @@ export const projects: Project[] = [
     },
     problems: ['ai'],
     year: '2026',
-    role: same('Developer'),
+    role: { id: 'Pengembang aplikasi', en: 'Developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Python', 'MediaPipe', 'YOLOv8', 'OpenCV'],
     shots: [],
@@ -745,12 +745,12 @@ export const projects: Project[] = [
     },
     summary: { id: 'Rekomendasi metode belajar dari kuesioner gaya belajar.', en: 'Study-method recommendations from a learning-style questionnaire.' },
     keyDecision: {
-      id: 'Model machine learning sederhana memilih satu dari tujuh metode berdasarkan tujuh jawaban kuesioner. AI generatif hanya menjelaskan hasil itu, tidak ikut memutuskan.',
+      id: 'Model AI sederhana memilih satu dari tujuh metode berdasarkan tujuh jawaban kuesioner. AI generatif hanya menjelaskan hasil itu, tidak ikut memutuskan.',
       en: 'A simple machine-learning model picks one of seven methods from seven questionnaire answers. A generative AI only explains that result and does not take part in the decision.',
     },
     problems: ['ai'],
     year: '2024',
-    role: { id: 'Satu-satunya developer', en: 'Sole developer' },
+    role: { id: 'Satu-satunya pengembang aplikasi', en: 'Sole developer' },
     status: { id: 'Selesai dibangun', en: 'Built' },
     stack: ['Next.js', 'Flask', 'scikit-learn (KNN)', 'Gemini'],
     shots: [],
@@ -785,7 +785,7 @@ export const projects: Project[] = [
     },
     problems: ['rules', 'public'],
     year: '2026',
-    role: { en: 'Sole developer', id: 'Satu-satunya developer' },
+    role: { en: 'Sole developer', id: 'Satu-satunya pengembang aplikasi' },
     status: { en: 'Built', id: 'Selesai dibangun' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -822,7 +822,7 @@ export const projects: Project[] = [
     },
     problems: ['public'],
     year: '2026',
-    role: { en: 'Sole developer', id: 'Satu-satunya developer' },
+    role: { en: 'Sole developer', id: 'Satu-satunya pengembang aplikasi' },
     status: { en: 'Built', id: 'Selesai dibangun' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -861,7 +861,7 @@ export const projects: Project[] = [
     },
     problems: ['public', 'workflow'],
     year: '2026',
-    role: { en: 'Sole developer', id: 'Satu-satunya developer' },
+    role: { en: 'Sole developer', id: 'Satu-satunya pengembang aplikasi' },
     status: { en: 'Built', id: 'Selesai dibangun' },
     stack: ['Laravel 12', 'Inertia', 'React 19', 'TypeScript'],
     shots: [],
@@ -885,5 +885,13 @@ export const projects: Project[] = [
   },
 ];
 
-export const caseStudies = projects.filter((p) => p.caseStudy);
-export const archive = projects.filter((p) => !p.caseStudy);
+// Display order for visitors: work a business owner relates to comes first. Unlisted projects keep their order.
+const CASE_ORDER = ['sipeg', 'procurement', 'face-recognition-attendance', 'albatros'];
+const ARCHIVE_FIRST = ['price-monitor', 'equipment-loans', 'shareholder-directives'];
+const byOrder = (order: string[]) => (a: Project, b: Project) => {
+  const rank = (p: Project) => (order.includes(p.slug) ? order.indexOf(p.slug) : order.length);
+  return rank(a) - rank(b);
+};
+
+export const caseStudies = projects.filter((p) => p.caseStudy).sort(byOrder(CASE_ORDER));
+export const archive = projects.filter((p) => !p.caseStudy).sort(byOrder(ARCHIVE_FIRST));

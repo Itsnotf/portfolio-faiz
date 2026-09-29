@@ -5,7 +5,7 @@
   },
   "nav": {
     "approach": "Cara kerja",
-    "work": "Studi kasus",
+    "work": "Proyek",
     "archive": "Arsip",
     "about": "Tentang",
     "contact": "Kontak",
@@ -28,7 +28,8 @@
   "hero": {
     "hint": "Gulir untuk merapikan",
     "primary": "Diskusikan proyekmu",
-    "secondary": "Lihat cara saya bekerja"
+    "secondary": "Lihat cara saya bekerja",
+    "label": "Aplikasi dan sistem untuk operasional bisnis"
   },
   "fragments": {
     "sheetTitle": "rekap FINAL (3).xlsx",
@@ -69,18 +70,18 @@
     "see": "Lihat keputusannya"
   },
   "work": {
-    "eyebrow": "Studi kasus",
+    "eyebrow": "Proyek",
     "title": "Keputusan di balik sistem yang dipakai",
-    "intro": "Setiap studi kasus menjelaskan masalahnya, batasannya, dan alasan di balik keputusan-keputusan pentingnya.",
+    "intro": "Setiap proyek menjelaskan masalahnya, kondisinya, dan alasan di balik keputusan pentingnya.",
     "problem": "Masalahnya",
-    "decisions": "Keputusan kunci",
-    "read": "Baca studi kasus",
+    "decisions": "Keputusan penting",
+    "read": "Lihat detail proyek",
     "cursor": "Baca"
   },
   "archive": {
-    "eyebrow": "Arsip",
+    "eyebrow": "Proyek lain",
     "title": "Masalah lain yang pernah saya selesaikan",
-    "intro": "Proyek yang lebih kecil, dikelompokkan berdasarkan jenis masalahnya. Diagram di tiap kartu menunjukkan bagaimana datanya saya susun.",
+    "intro": "Proyek yang lebih kecil, dikelompokkan berdasarkan jenis masalahnya.",
     "filterLabel": "Saring berdasarkan jenis masalah",
     "all": "Semua",
     "rules": "Perhitungan & aturan bisnis",
@@ -89,14 +90,14 @@
     "ai": "Kecerdasan buatan (AI)",
     "public": "Platform untuk publik",
     "decision": "Keputusan",
-    "count": "{count} proyek"
+    "count": "{count} proyek",
+    "showAll": "Lihat {count} proyek lain"
   },
   "about": {
     "eyebrow": "Tentang",
     "title": "Engineer yang juga pernah menjalankan bisnis",
-    "body1": "Saya Faiz, software engineer di Palembang. Saya memulai dari front-end dan desain UI, pernah mengajar Laravel, lalu terus belajar sampai bisa membangun sistem dari ujung ke ujung, mulai dari database, API, dan antarmuka sampai bagian yang membutuhkan machine learning.",
-    "body2": "Saat ini saya bekerja sebagai software developer di Loranet Technologies PLT, perusahaan teknologi di Malaysia, sambil tetap menjalankan Berkala Digital, agensi yang saya dirikan pada 2025. Di Berkala saya memimpin tim kreatif dan tim IT. Menjalankan bisnis sendiri mengajarkan hal yang sering baru dipelajari engineer belakangan, yaitu bahwa software baru benar-benar selesai ketika orang yang memakainya percaya padanya.",
-    "services": "Yang bisa saya bangun untukmu",
+    "body1": "Saya Faiz, berbasis di Palembang. Saya membuat aplikasi dan sistem dari awal sampai siap dipakai, mulai dari tampilan yang mudah dipahami dan data yang tersimpan rapi, sampai fitur pintar seperti pengenalan wajah jika memang dibutuhkan.",
+    "body2": "Saat ini saya bekerja sebagai pengembang aplikasi di Loranet Technologies PLT, perusahaan teknologi di Malaysia, sambil tetap menjalankan Berkala Digital, agensi yang saya dirikan pada 2025. Di Berkala saya memimpin tim kreatif dan tim IT. Menjalankan bisnis sendiri mengajarkan hal yang sering terlambat disadari pembuat aplikasi, yaitu bahwa aplikasi baru benar-benar selesai ketika orang yang memakainya percaya padanya.",
     "experience": "Pengalaman",
     "education": "Pendidikan",
     "recognition": "Pencapaian",
@@ -114,27 +115,31 @@
     "whatsapp": "Chat lewat WhatsApp",
     "github": "GitHub",
     "linkedin": "LinkedIn",
-    "cv": "Unduh CV (PDF)"
+    "cv": "Unduh CV (PDF)",
+    "numberLabel": "Nomor WhatsApp",
+    "waMessage": "Halo Faiz, saya ingin bertanya tentang aplikasi untuk usaha saya.",
+    "float": "Chat WhatsApp",
+    "similarTitle": "Punya masalah serupa?",
+    "similarBody": "Ceritakan kondisinya lewat WhatsApp atau email, tidak perlu dalam bahasa teknis."
   },
   "case": {
-    "back": "Semua studi kasus",
+    "back": "Semua proyek",
     "problem": "Masalahnya",
     "role": "Peran",
     "year": "Tahun",
     "status": "Status",
-    "stack": "Dibangun dengan",
-    "context": "Konteks dan batasan",
-    "decisions": "Keputusan kunci",
+    "stack": "Teknologi yang dipakai",
+    "context": "Latar belakang",
+    "decisions": "Keputusan penting",
     "state": "Kondisi saat ini",
     "reflection": "Refleksi",
-    "sample": "Screenshot memakai data contoh. Nama dan angkanya fiktif.",
-    "next": "Studi kasus berikutnya",
+    "sample": "Gambar memakai data contoh untuk menjaga kerahasiaan klien.",
+    "next": "Proyek berikutnya",
     "index": "Di halaman ini",
     "updated": "Diperbarui {date}",
     "related": "Layanan terkait"
   },
   "footer": {
-    "built": "Dibangun dengan Next.js dan GSAP.",
     "top": "Kembali ke atas",
     "services": "Layanan",
     "more": "Lainnya"
@@ -147,11 +152,12 @@
     "process": "Cara saya bekerja",
     "processLink": "Lihat contoh nyata tiap langkah",
     "cost": "Apa yang memengaruhi biaya",
-    "costNote": "Setiap proyek berbeda, jadi perkiraan biaya diberikan setelah kebutuhanmu dipahami. Ceritakan lewat email atau WhatsApp.",
+    "costNote": "Setiap proyek berbeda, jadi perkiraan biaya diberikan setelah kebutuhanmu dipahami.",
     "faq": "Pertanyaan yang sering diajukan",
     "other": "Layanan lain",
-    "readCase": "Baca studi kasus",
-    "updated": "Diperbarui {date}"
+    "readCase": "Lihat detail proyek",
+    "updated": "Diperbarui {date}",
+    "costCta": "Tanya biaya lewat WhatsApp"
   },
   "local": {
     "eyebrow": "Palembang & Sumatera Selatan",
@@ -183,5 +189,13 @@
     "author": "Tentang penulis",
     "authorMore": "Lihat profil lengkap",
     "all": "Semua artikel"
+  },
+  "servicesSection": {
+    "eyebrow": "Layanan",
+    "title": "Yang bisa saya bangun untukmu",
+    "intro": "Untuk toko, distributor, perusahaan jasa, dan instansi yang pekerjaannya masih berjalan di Excel, kertas, atau grup chat."
+  },
+  "ui": {
+    "swipe": "Geser untuk melihat lainnya"
   }
 }

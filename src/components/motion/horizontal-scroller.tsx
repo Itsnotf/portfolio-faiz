@@ -14,6 +14,8 @@ interface Props {
   children: ReactNode;
   count: number;
   className?: string;
+  /** Shown on phones next to the counter, where the cards are swiped rather than scrolled. */
+  hint?: string;
 }
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -24,7 +26,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
  * - Phones, reduced motion or no JS: a native swipe carousel with scroll snapping.
  * In both cases the first card starts on the same left edge as every other section.
  */
-export function HorizontalScroller({ id, labelledBy, header, children, count, className = '' }: Props) {
+export function HorizontalScroller({ id, labelledBy, header, children, count, className = '', hint }: Props) {
   const root = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLUListElement>(null);
@@ -143,6 +145,7 @@ export function HorizontalScroller({ id, labelledBy, header, children, count, cl
         <span className="hscroll-bar flex-1">
           <span ref={bar} />
         </span>
+        {hint ? <span className="text-sm text-tinta-muda md:hidden">{hint} →</span> : null}
       </div>
     </section>
   );
