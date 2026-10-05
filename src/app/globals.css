@@ -369,6 +369,10 @@
     white-space: nowrap;
     transition: background-color 200ms, color 200ms, border-color 200ms;
   }
+  /* Icons keep their size when a button is narrow and its label does not wrap. */
+  .btn > svg {
+    flex-shrink: 0;
+  }
   .btn-primary {
     background: var(--accent);
     color: var(--on-accent);
@@ -753,7 +757,12 @@
     max-width: 40rem;
   }
   [data-view='mobile'] .section {
-    padding-block: 3rem;
+    padding-block: 2.75rem;
+  }
+  /* Section headings on phones take two lines, not four. */
+  [data-view='mobile'] .h-section {
+    font-size: clamp(1.75rem, 7.2vw, 2.1rem);
+    line-height: 1.08;
   }
   /* 44px controls in the phone top bar (they are 40px on desktop). */
   [data-view='mobile'] .theme-toggle {
@@ -913,6 +922,121 @@
       translate: 0 40%;
       opacity: 0;
     }
+  }
+}
+
+@layer components {
+  /* Native accordion rows on the phone pages (about, case decisions): a full-width, 56px summary with a plus sign. */
+  .m-acc > summary {
+    display: flex;
+    min-height: 3.5rem;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    font-weight: 600;
+  }
+  .m-acc > summary::-webkit-details-marker {
+    display: none;
+  }
+  .m-acc > summary > [aria-hidden] {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: rotate 300ms var(--ease-out);
+  }
+  .m-acc[open] > summary > [aria-hidden] {
+    rotate: 45deg;
+  }
+
+  /* A row of cards to swipe on the phone pages (habits on the home page), on the same left edge as the text. */
+  .m-swipe {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .m-swipe::-webkit-scrollbar {
+    display: none;
+  }
+  .m-swipe > ol {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    padding-inline: var(--gutter);
+  }
+  .m-swipe > ol > li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  /* Swipeable screenshots on the phone case page, starting on the same left edge as the text. */
+  .m-shots {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .m-shots::-webkit-scrollbar {
+    display: none;
+  }
+  .m-shots > ul {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: max-content;
+    padding-inline: var(--gutter);
+  }
+  .m-shots li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .m-shots li > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .m-shot-desktop {
+    width: 86vw;
+    max-width: 36rem;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+  }
+  .m-shot-phone {
+    width: 58vw;
+    max-width: 16rem;
+    aspect-ratio: 9 / 19.5;
+    border: 4px solid var(--ink) !important;
+    border-radius: 1.4rem;
+  }
+
+  /* The archive filter on phones: one row of chips that scrolls sideways instead of wrapping onto several lines. */
+  .m-chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .m-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Contact block on the phone pages: a full-width WhatsApp button and a normal-sized email link. */
+  [data-view='mobile'] #contact .btn {
+    width: 100%;
+    min-height: 3.5rem;
+    justify-content: center;
   }
 }
 

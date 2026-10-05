@@ -1,7 +1,7 @@
 /**
- * Every page exists twice, built separately for phones and for larger screens, at the same public URL.
- * `src/proxy.ts` picks one per request and rewrites to /<locale>/<view>/…; pages read the view from their params.
- * Kept free of server-only imports so client components can use it too.
+ * Every page exists twice, built separately for phones and for larger screens, at the same public URL: the route
+ * folders src/app/[locale]/desktop and src/app/[locale]/mobile. `src/proxy.ts` picks one per request and rewrites to
+ * /<locale>/<view>/…. Kept free of server-only imports so client components can use it too.
  */
 export const views = ['desktop', 'mobile'] as const;
 export type View = (typeof views)[number];

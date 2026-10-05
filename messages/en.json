@@ -82,11 +82,9 @@
     "serves": "Works with",
     "languages": "Languages",
     "experience": "Experience",
-    "current": "Currently",
-    "earlier": "Earlier experience ({count})",
+    "experienceCount": "Work experience ({count})",
     "education": "Education",
     "recognition": "Recognition",
-    "eduRec": "Education & recognition",
     "cv": "Download CV (PDF)"
   },
   "contact": {

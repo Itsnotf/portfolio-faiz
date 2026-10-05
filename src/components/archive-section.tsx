@@ -2,12 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { archive, PROBLEMS, type Problem, type Project } from '@/content/work';
+import { archive } from '@/content/work';
 import type { Locale } from '@/i18n/routing';
 import { Flip, gsap, motionOn, ScrollTrigger, useGSAP } from './motion/gsap';
 import { ProjectCard } from './project-card';
-
-type Filter = Problem | 'all';
+import { useArchiveFilter, type ArchiveFilter } from './use-archive-filter';
 
 /** Cards shown on phones before the visitor asks for more (choice overload, cognitive load). */
 const PREVIEW = 3;
@@ -18,16 +17,12 @@ export function ArchiveSection() {
   const root = useRef<HTMLElement>(null);
   const flipState = useRef<Flip.FlipState | null>(null);
   const mounted = useRef(false);
-  const [filter, setFilter] = useState<Filter>('all');
+  const { filter, setFilter, visible, used, count, shown } = useArchiveFilter();
   // Phones start with a short preview; wider screens always show everything.
   const [expanded, setExpanded] = useState(false);
   const list = useRef<HTMLUListElement>(null);
 
-  const visible = (p: Project) => filter === 'all' || p.problems.includes(filter);
-  const used = PROBLEMS.filter((k) => archive.some((p) => p.problems.includes(k)));
-  const count = (f: Filter) => (f === 'all' ? archive.length : archive.filter((p) => p.problems.includes(f)).length);
-
-  function choose(f: Filter) {
+  function choose(f: ArchiveFilter) {
     if (f === filter) return;
     if (motionOn()) flipState.current = Flip.getState(root.current!.querySelectorAll('[data-flip-id]'));
     setFilter(f);
@@ -79,14 +74,14 @@ export function ArchiveSection() {
         </div>
 
         <div role="group" aria-label={t('filterLabel')} className={`mt-12 flex flex-wrap gap-2 ${expanded ? '' : 'max-md:hidden'}`}>
-          {(['all', ...used] as Filter[]).map((f) => (
+          {(['all', ...used] as ArchiveFilter[]).map((f) => (
             <button key={f} type="button" aria-pressed={filter === f} onClick={() => choose(f)} className="chip">
               {t(f)} <small>{count(f)}</small>
             </button>
           ))}
         </div>
         <p aria-live="polite" className="sr-only">
-          {t('count', { count: archive.filter(visible).length })}
+          {t('count', { count: shown })}
         </p>
 
         <ul ref={list} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

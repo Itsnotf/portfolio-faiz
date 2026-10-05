@@ -82,11 +82,9 @@
     "serves": "Melayani",
     "languages": "Bahasa",
     "experience": "Pengalaman",
-    "current": "Sekarang",
-    "earlier": "Pengalaman sebelumnya ({count})",
+    "experienceCount": "Pengalaman kerja ({count})",
     "education": "Pendidikan",
     "recognition": "Pencapaian",
-    "eduRec": "Pendidikan & pencapaian",
     "cv": "Unduh CV (PDF)"
   },
   "contact": {

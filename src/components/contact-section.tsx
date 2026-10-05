@@ -19,7 +19,7 @@ export async function ContactSection() {
             </h2>
           </div>
           <div className="md:col-span-5 md:col-start-8 md:pt-12" data-reveal>
-            <p className="text-lg text-on-invert/85">{t('body')}</p>
+            <p className="text-lg text-on-invert/85 m:text-base">{t('body')}</p>
             <ol className="mt-5 space-y-3">
               {(['prompt1', 'prompt2', 'prompt3'] as const).map((k, i) => (
                 <li key={k} className="flex gap-3">
@@ -31,7 +31,7 @@ export async function ContactSection() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-on-invert/20 pt-10 md:mt-24">
+        <div className="mt-14 border-t border-on-invert/20 pt-10 md:mt-24 m:mt-8 m:pt-7">
           {/* WhatsApp first and most prominent: it is how most clients here get in touch (Von Restorff). */}
           <a href={wa} target="_blank" rel="noreferrer" className="btn bg-invert-accent text-invert" data-magnetic>
             <WhatsAppIcon />
@@ -39,17 +39,17 @@ export async function ContactSection() {
               <span>{t('whatsapp')}</span>
             </span>
           </a>
-          <p className="mt-10 font-semibold text-on-invert/70">{t('emailLabel')}</p>
+          <p className="mt-10 font-semibold text-on-invert/70 m:mt-7">{t('emailLabel')}</p>
           <a
             href={`mailto:${profile.email}`}
-            className="tap-area mt-3 inline-block font-display text-[clamp(1.35rem,6.2vw,4.5rem)] font-bold leading-tight text-invert-accent no-underline [overflow-wrap:anywhere]"
+            className="tap-area mt-3 inline-block font-display text-[clamp(1.35rem,6.2vw,4.5rem)] font-bold leading-tight text-invert-accent no-underline [overflow-wrap:anywhere] m:mt-1 m:text-[1.3rem]"
           >
             <span className="roll" data-label={profile.email}>
               <span>{profile.email}</span>
             </span>
           </a>
 
-          <ul className="mt-8 flex flex-wrap items-center gap-x-6 text-sm">
+          <ul className="mt-8 flex flex-wrap items-center gap-x-6 text-sm m:mt-4">
             <li>
               <a href={profile.github} target="_blank" rel="noreferrer" className="link tap-area inline-block py-2 text-on-invert/80">
                 {t('github')}
@@ -70,7 +70,7 @@ export async function ContactSection() {
               </li>
             ) : null}
           </ul>
-          <p className="mt-10 font-display text-xl font-bold text-on-invert/90">{t('signoff')}</p>
+          <p className="mt-10 font-display text-xl font-bold text-on-invert/90 m:mt-6 m:text-lg">{t('signoff')}</p>
         </div>
       </div>
     </section>

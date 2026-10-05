@@ -32,7 +32,7 @@ const SINGLE = { faq: '/faq', palembang: '/palembang', articles: '/articles' } a
  * hreflang link (built from the same slug data as the canonical URL). It is read again on click, so it is
  * never stale after a client-side navigation.
  *
- * The page is read from the route tree (useSelectedLayoutSegments, relative to the [view] layout), not from
+ * The page is read from the route tree (useSelectedLayoutSegments, relative to the view layout), not from
  * usePathname: pages are prerendered at /<locale>/<view>/…, so a pathname differs between server and browser and the
  * server-rendered link would point at a page that does not exist.
  */
