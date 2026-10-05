@@ -8,6 +8,13 @@ export type View = (typeof views)[number];
 
 export const isView = (value: unknown): value is View => value === 'desktop' || value === 'mobile';
 
+/**
+ * Kill switch: set to 'desktop' to serve the desktop pages to everyone (for example if the phone pages misbehave after
+ * a deploy). The desktop pages keep their responsive rules, so they still work on phones. While a view is forced, the
+ * footer hides its "Versi desktop / Versi mobile" link, which could not do anything.
+ */
+export const FORCE_VIEW: View | null = null;
+
 /** Cookie set by the "Versi desktop / Versi mobile" link; it wins over device detection. */
 export const VIEW_COOKIE = 'view';
 /** Query parameter that sets (desktop|mobile) or clears (auto) that cookie: /?view=desktop. */

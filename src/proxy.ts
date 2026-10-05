@@ -1,17 +1,11 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextResponse, userAgent, type NextRequest } from 'next/server';
 import { routing } from './i18n/routing';
-import { isView, VIEW_COOKIE, VIEW_PARAM, type View } from './lib/view';
+import { FORCE_VIEW, isView, VIEW_COOKIE, VIEW_PARAM, type View } from './lib/view';
 
 const intl = createMiddleware(routing);
 
-/**
- * Kill switch: set to 'desktop' to serve the desktop pages to everyone (for example if the mobile pages misbehave
- * after a deploy). The desktop pages keep their responsive rules, so they still work on phones.
- */
-const FORCE_VIEW: View | null = null;
-
-// Share images exist once per locale, outside the [view] folder, so they are never rewritten.
+// Share images exist once per locale, outside the desktop/ and mobile/ folders, so they are never rewritten.
 const METADATA_ROUTE = /\/(?:opengraph-image|twitter-image|icon|apple-icon)(?:[-/][\w-]+)?$/;
 
 // One URL serves two different pages (dynamic serving), so caches must key on the device signals too. Netlify replaces

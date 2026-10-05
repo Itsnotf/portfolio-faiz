@@ -83,7 +83,7 @@ changes.
   `Vary: …, User-Agent, Sec-CH-UA-Mobile, Cookie`.
 - **Switching:** the footer link "Versi desktop / Versi mobile" goes to `?view=desktop|mobile`, which sets the cookie
   and redirects back (`?view=auto` forgets it). It works without JS.
-- **Kill switch:** set `FORCE_VIEW = 'desktop'` in `src/proxy.ts` to serve the desktop pages to everyone. They keep their
+- **Kill switch:** set `FORCE_VIEW = 'desktop'` in `src/lib/view.ts` to serve the desktop pages to everyone. They keep their
   responsive rules, so they still work on phones.
 - **Route files stay thin.** Each one re-exports a screen from `src/screens` (home and case studies pass their view's own
   body). Keeping the two folders apart is what keeps desktop-only client code, such as GSAP, out of the phone pages: a

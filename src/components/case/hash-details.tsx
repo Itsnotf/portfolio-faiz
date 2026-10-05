@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { hashId } from '@/lib/hash';
 
 /**
  * Opens the <details> a URL points at (/work/sipeg#pro-rata), so links from "Cara saya bekerja" land on an open
@@ -9,7 +10,7 @@ import { useEffect } from 'react';
 export function HashDetails() {
   useEffect(() => {
     const open = () => {
-      const id = decodeURIComponent(location.hash.slice(1));
+      const id = hashId(location.hash);
       const target = id ? document.getElementById(id) : null;
       const details = target?.closest('details');
       if (!details) return;

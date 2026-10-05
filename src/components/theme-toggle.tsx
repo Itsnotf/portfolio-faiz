@@ -49,7 +49,7 @@ export function ThemeToggle({ labels }: { labels: { dark: string; light: string 
       aria-pressed={theme ? dark : undefined}
       aria-label={labels.dark}
       title={dark ? labels.light : labels.dark}
-      className="theme-toggle group inline-grid size-10 place-items-center rounded-full border border-tinta/30 transition-colors hover:border-tinta"
+      className="theme-toggle group inline-grid size-10 place-items-center m:size-11 rounded-full border border-tinta/30 transition-colors hover:border-tinta"
     >
       <svg viewBox="0 0 24 24" className="icon-moon size-[18px] transition-transform duration-500 group-hover:-rotate-12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />

@@ -117,7 +117,7 @@
     "decisions": "Keputusan penting",
     "state": "Kondisi saat ini",
     "reflection": "Refleksi",
-    "sample": "Gambar memakai data contoh untuk menjaga kerahasiaan klien.",
+    "sample": "Gambar memakai data contoh, bukan data asli.",
     "next": "Proyek berikutnya",
     "index": "Di halaman ini",
     "updated": "Diperbarui {date}",

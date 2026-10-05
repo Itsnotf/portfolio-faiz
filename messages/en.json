@@ -68,7 +68,7 @@
     "ai": "Artificial intelligence (AI)",
     "public": "Public-facing platforms",
     "decision": "Decision",
-    "count": "{count} projects",
+    "count": "{count, plural, one {# project} other {# projects}}",
     "showAll": "Show {count} more projects"
   },
   "about": {
@@ -117,7 +117,7 @@
     "decisions": "Important decisions",
     "state": "Where it stands",
     "reflection": "Looking back",
-    "sample": "Images use sample data to protect client confidentiality.",
+    "sample": "Images use sample data, not real records.",
     "next": "Next project",
     "index": "On this page",
     "updated": "Updated {date}",

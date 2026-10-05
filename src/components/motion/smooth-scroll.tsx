@@ -1,5 +1,6 @@
 'use client';
 
+import { hashId } from '@/lib/hash';
 import { motionOn, ScrollSmoother, ScrollTrigger, scrollToTarget, useGSAP } from './gsap';
 
 /**
@@ -29,7 +30,7 @@ export function SmootherInit() {
       if (!a || a.target === '_blank') return;
       const url = new URL(a.href, location.href);
       if (url.pathname !== location.pathname || !url.hash) return;
-      const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      const el = document.getElementById(hashId(url.hash));
       if (!el) return;
       e.preventDefault();
       history.pushState(null, '', url.hash);

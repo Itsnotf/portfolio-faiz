@@ -27,12 +27,11 @@ export async function MobilePrinciples({ locale }: { locale: Locale }) {
               <span className="font-display text-2xl font-bold leading-none text-stempel [font-stretch:120%]">{String(i + 1).padStart(2, '0')}</span>
               <h3 className="mt-3 text-[1.2rem] leading-tight">{p.title[locale]}</h3>
               <p className="mt-2 text-[0.95rem] leading-snug text-tinta-muda">{p.plain[locale]}</p>
-              <Link
-                href={{ pathname: '/work/[slug]', params: { slug: p.example.slug }, hash: p.example.decision }}
-                className="link tap-area mt-auto self-start pt-4 text-sm font-semibold text-stempel"
-              >
-                {t('example')}: {p.example.label[locale]} →
-              </Link>
+              <p className="mt-auto pt-4 text-sm font-semibold">
+                <Link href={{ pathname: '/work/[slug]', params: { slug: p.example.slug }, hash: p.example.decision }} className="link tap-area text-stempel">
+                  {t('example')}: {p.example.label[locale]} →
+                </Link>
+              </p>
             </li>
           ))}
         </ol>

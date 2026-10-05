@@ -269,6 +269,8 @@
     color: var(--ink-muted);
   }
   .eyebrow > b {
+    flex-shrink: 0;
+    white-space: nowrap;
     font-family: var(--font-display);
     font-weight: 700;
     color: var(--accent);
@@ -695,6 +697,10 @@
   main section[id] {
     scroll-margin-top: var(--header-h);
   }
+  /* Sections take focus after an in-page jump (so the next Tab starts there); the scroll already shows where it went. */
+  main section[id]:focus {
+    outline: none;
+  }
 }
 
 @layer base {
@@ -763,16 +769,6 @@
   [data-view='mobile'] .h-section {
     font-size: clamp(1.75rem, 7.2vw, 2.1rem);
     line-height: 1.08;
-  }
-  /* 44px controls in the phone top bar (they are 40px on desktop). */
-  [data-view='mobile'] .theme-toggle {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-  [data-view='mobile'] .lang-switch {
-    min-height: 2.75rem;
-    min-width: 2.75rem;
-    justify-content: center;
   }
 
   .m-topbar {
@@ -953,11 +949,16 @@
   }
 
   /* A row of cards to swipe on the phone pages (habits on the home page), on the same left edge as the text. */
+  /* Same left edge as the phone column (.wrap, max 40rem), and clear of a landscape notch. */
+  .m-swipe,
+  .m-shots {
+    --m-edge: max(var(--gutter), (100% - 40rem) / 2, env(safe-area-inset-left));
+  }
   .m-swipe {
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
+    scroll-padding-inline: var(--m-edge);
     scrollbar-width: none;
   }
   .m-swipe::-webkit-scrollbar {
@@ -967,7 +968,7 @@
     display: flex;
     gap: 0.75rem;
     width: max-content;
-    padding-inline: var(--gutter);
+    padding-inline: var(--m-edge);
   }
   .m-swipe > ol > li {
     flex: 0 0 auto;
@@ -979,7 +980,7 @@
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
+    scroll-padding-inline: var(--m-edge);
     scrollbar-width: none;
   }
   .m-shots::-webkit-scrollbar {
@@ -990,7 +991,7 @@
     align-items: flex-start;
     gap: 0.75rem;
     width: max-content;
-    padding-inline: var(--gutter);
+    padding-inline: var(--m-edge);
   }
   .m-shots li {
     flex: 0 0 auto;

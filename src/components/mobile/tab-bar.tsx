@@ -1,8 +1,9 @@
 'use client';
 
-import { useId, useRef } from 'react';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { useId, useRef, type MouseEvent } from 'react';
+import { useSelectedLayoutSegments } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
+import { hashId } from '@/lib/hash';
 import type { NavLink } from '../mobile-nav';
 import { WhatsAppIcon } from '../whatsapp-icon';
 
@@ -39,18 +40,42 @@ const icon = {
 };
 
 /**
+ * After a jump to a section (/#about), move keyboard and screen-reader focus there too; otherwise it stays on the tab
+ * bar at the end of the page. Waits until the target page is showing, because from another page the link first
+ * navigates home (and a section with the same id, like #contact, may exist on the page being left).
+ */
+function focusSectionAfterJump(e: MouseEvent<HTMLAnchorElement>) {
+  const url = new URL(e.currentTarget.href);
+  const id = hashId(url.hash);
+  if (!id) return;
+  let frames = 0;
+  const tick = () => {
+    const el = location.pathname === url.pathname ? document.getElementById(id) : null;
+    if (el) {
+      if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+      el.focus({ preventScroll: true });
+    } else if (frames++ < 300) {
+      requestAnimationFrame(tick);
+    }
+  };
+  requestAnimationFrame(tick);
+}
+
+/**
  * Bottom tab bar for phones (thumb reach): Beranda, Karya, WhatsApp, Layanan, Menu. The active tab comes from the route
- * tree (useSelectedLayoutSegment), never from usePathname: pages are prerendered under /<locale>/<view>/… and the browser
- * URL differs, so a pathname would render differently on the server and the client.
+ * tree (useSelectedLayoutSegments), never from usePathname: pages are prerendered under /<locale>/<view>/… and the
+ * browser URL differs, so a pathname would render differently on the server and the client.
  * Menu opens a native <dialog>: the page behind becomes inert, Esc closes it and focus returns to the button.
  */
 export function MobileTabBar({ whatsapp, labels, sections, pages, contact }: Props) {
-  const segment = useSelectedLayoutSegment();
+  const segments = useSelectedLayoutSegments();
+  const segment = segments[0] ?? null;
   const sheet = useRef<HTMLDialogElement>(null);
   const titleId = useId();
 
   const close = () => sheet.current?.close();
   const current = (match: boolean, kind: 'page' | 'true' = 'true') => (match ? kind : undefined);
+  // One owner per page: Palembang and the help pages are reached through Menu, services and case studies through tabs.
   const pageActive = pages.some((p) => p.key === segment);
 
   return (
@@ -66,7 +91,7 @@ export function MobileTabBar({ whatsapp, labels, sections, pages, contact }: Pro
             </Link>
           </li>
           <li>
-            <Link href={{ pathname: '/', hash: 'work' }} aria-current={current(segment === 'work')}>
+            <Link href={{ pathname: '/', hash: 'work' }} onClick={focusSectionAfterJump} aria-current={current(segment === 'work')}>
               <svg {...icon}>
                 <rect x="3.5" y="4.5" width="17" height="12" rx="2" />
                 <path d="M8 20h8M12 16.5V20" />
@@ -83,7 +108,7 @@ export function MobileTabBar({ whatsapp, labels, sections, pages, contact }: Pro
             </a>
           </li>
           <li>
-            <Link href={{ pathname: '/', hash: 'services' }} aria-current={current(segment === 'services' || segment === 'palembang')}>
+            <Link href={{ pathname: '/', hash: 'services' }} onClick={focusSectionAfterJump} aria-current={current(segment === 'services')}>
               <svg {...icon}>
                 <path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17l3 3 5.2-5.2a4 4 0 0 0 5.3-5.3l-2.4 2.4-2.6-.4-.4-2.6z" />
               </svg>
@@ -125,7 +150,14 @@ export function MobileTabBar({ whatsapp, labels, sections, pages, contact }: Pro
             <ul>
               {sections.map((l) => (
                 <li key={l.key}>
-                  <Link href={l.href} onClick={close} className="m-sheet-link">
+                  <Link
+                    href={l.href}
+                    onClick={(e) => {
+                      close();
+                      focusSectionAfterJump(e);
+                    }}
+                    className="m-sheet-link"
+                  >
                     {l.label}
                     <span aria-hidden="true">→</span>
                   </Link>
@@ -136,7 +168,13 @@ export function MobileTabBar({ whatsapp, labels, sections, pages, contact }: Pro
             <ul className="mt-1">
               {pages.map((l) => (
                 <li key={l.key}>
-                  <Link href={l.href} onClick={close} aria-current={current(segment === l.key, 'page')} className="m-sheet-link">
+                  {/* "page" on the page itself (/artikel), "true" below it (an article). */}
+                  <Link
+                    href={l.href}
+                    onClick={close}
+                    aria-current={current(segment === l.key, segments.length > 1 ? 'true' : 'page')}
+                    className="m-sheet-link"
+                  >
                     {l.label}
                     <span aria-hidden="true">→</span>
                   </Link>

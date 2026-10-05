@@ -4,7 +4,7 @@ import { local, services } from '@/content/services';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { articles } from '@/lib/articles';
-import type { View } from '@/lib/view';
+import { FORCE_VIEW, type View } from '@/lib/view';
 
 /**
  * Footer with links to every service and help page: useful for visitors and tells search engines what matters.
@@ -59,7 +59,7 @@ export async function SiteFooter({ view }: { view: View }) {
           © {new Date().getFullYear()} {profile.name}
         </p>
         {/* rel=nofollow: the switch only sets a cookie and redirects back, so it is not a page for search engines. */}
-        {view === 'mobile' ? (
+        {FORCE_VIEW ? null : view === 'mobile' ? (
           <a href="?view=desktop" rel="nofollow" className="link-quiet tap-area inline-block py-2 font-semibold text-tinta">
             {t('nav.viewDesktop')}
           </a>

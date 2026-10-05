@@ -58,8 +58,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const themeFlag = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}`;
 
 export const viewport: Viewport = {
-  // Lets the phone tab bar sit above the home indicator (env(safe-area-inset-bottom) is 0 without it).
-  viewportFit: 'cover',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#eef1f0' },
     { media: '(prefers-color-scheme: dark)', color: '#0f1526' },
@@ -90,7 +88,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
       </head>
       <body>
         <a href="#main" className="skip-link">{t('skip')}</a>
-        {/* Header, main, footer and motion are rendered per view by src/app/[locale]/[view]/layout.tsx. */}
+        {/* Header, main, footer and motion are rendered per view by src/app/[locale]/{desktop,mobile}/layout.tsx. */}
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         {/* Only on Vercel: shows visits referred by chatgpt.com, perplexity.ai, gemini and search engines. */}
         {process.env.VERCEL ? <Analytics /> : null}

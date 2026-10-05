@@ -66,7 +66,7 @@ export function LanguageSwitch({ label, short, target }: { label: string; short:
       onClick={onClick}
       hrefLang={target}
       lang={target}
-      className="lang-switch inline-flex min-h-10 items-center rounded-full border border-tinta/30 px-3 text-sm font-semibold no-underline transition-colors hover:border-tinta"
+      className="inline-flex min-h-10 items-center justify-center m:min-h-11 m:min-w-11 rounded-full border border-tinta/30 px-3 text-sm font-semibold no-underline transition-colors hover:border-tinta"
     >
       {short}
       {/* The visible code stays at the start of the accessible name, so voice control can say what it sees. */}

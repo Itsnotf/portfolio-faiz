@@ -84,7 +84,7 @@ export const projects: Project[] = [
       en: 'Case study of ALBATROS, a scholarship matching app and national finalist that scores eligibility honestly and has an AI coach that names its sources.',
     },
     seoTitle: { id: 'Aplikasi Pencocokan Beasiswa ALBATROS', en: 'ALBATROS Scholarship Matching App' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: same('ALBATROS'),
     problem: {
       id: 'Informasi beasiswa tersebar di banyak tempat, dan pelajar tidak tahu beasiswa mana yang benar-benar cocok untuk mereka.',
@@ -192,7 +192,7 @@ export const projects: Project[] = [
       en: 'Case study of a face-recognition attendance system for classrooms, with a 65% confidence threshold, double-entry protection and admin-approved fixes.',
     },
     seoTitle: { id: 'Aplikasi Absensi Pengenalan Wajah', en: 'Face-Recognition Attendance System' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: { id: 'Absensi pengenalan wajah', en: 'Face-recognition attendance' },
     problem: {
       id: 'Absensi kertas bisa dititipkan, dan merekapnya memakan waktu berjam-jam.',
@@ -282,7 +282,7 @@ export const projects: Project[] = [
       en: 'Case study of a payroll system for outsourced staff, with per-contract pay calendars, BPJS and cash-advance deductions, and every number traceable.',
     },
     seoTitle: { id: 'Aplikasi Penggajian Karyawan Outsourcing', en: 'Payroll System for Outsourced Staff' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: same('SIPEG'),
     problem: {
       id: 'Gaji karyawan yang ditempatkan di banyak klien harus dihitung dengan aturan yang berbeda di tiap kontrak, dan selisih satu rupiah langsung terasa oleh penerima slip gaji.',
@@ -489,7 +489,7 @@ export const projects: Project[] = [
       en: 'Case study of a stock request and procurement system that automatically buys only the stock shortfall, with approvals and PDF reports.',
     },
     seoTitle: { id: 'Sistem Permintaan dan Pengadaan Barang', en: 'Stock Request and Procurement System' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: { id: 'Permintaan & pengadaan barang', en: 'Stock requests & procurement' },
     problem: {
       id: 'Permintaan barang dari unit kerja harus dicocokkan dengan stok gudang dan pembelian ke vendor, supaya kekurangan terlihat sebelum barangnya dibutuhkan.',

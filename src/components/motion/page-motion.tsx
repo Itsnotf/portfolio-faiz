@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { hashId } from '@/lib/hash';
 import { gsap, motionOn, ScrollSmoother, ScrollTrigger, scrollToTarget, SplitText, useGSAP } from './gsap';
 
 /**
@@ -23,7 +24,7 @@ export function PageMotion() {
 
       // A new page starts at the top (or at its hash) instead of gliding from the old position.
       smoother?.scrollTop(0);
-      const hashTarget = () => (location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null);
+      const hashTarget = () => (location.hash ? document.getElementById(hashId(location.hash)) : null);
       const raf = requestAnimationFrame(() => {
         ScrollTrigger.refresh();
         const el = hashTarget();
