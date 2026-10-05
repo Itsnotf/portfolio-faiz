@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 
-/* Wide but short screens (laptops at 1366×768, 1280×720): pinned sections tighten up. */
-@custom-variant short (@media (min-width: 768px) and (max-height: 820px));
+/* View-specific tweaks in shared components: m:… applies only on the phone pages, d:… only on the desktop pages. */
+@custom-variant m (&:where([data-view='mobile'] *));
+@custom-variant d (&:where([data-view='desktop'] *));
 
 /*
  * Fallback for the Anybody headings while the web font loads. Bold Anybody is much wider than Arial, so the
@@ -52,7 +53,7 @@
 /*
  * Palette taken from carbon-copy office forms: paper, ballpoint ink, the violet of a rubber
  * stamp, and the yellow and pink copies of a multi-part form. Yellow and pink appear only in
- * the "messy" state of the hero and in small markers; the tidy site is paper, ink and stamp.
+ * small markers and the share images; the site itself is paper, ink and stamp.
  *
  * Every colour is a semantic token on :root so the dark theme only has to redefine the tokens.
  * The Tailwind names (kertas, tinta, stempel…) map onto the tokens, so utilities follow the theme.
@@ -86,6 +87,7 @@
   --measure: 36rem;
   --measure-wide: 44rem; /* about 75–80 characters of 18px body text */
   --header-h: 4.5rem;
+  --bar-h: 4rem; /* phone tab bar */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -267,6 +269,8 @@
     color: var(--ink-muted);
   }
   .eyebrow > b {
+    flex-shrink: 0;
+    white-space: nowrap;
     font-family: var(--font-display);
     font-weight: 700;
     color: var(--accent);
@@ -278,6 +282,11 @@
     line-height: 1.04;
     font-stretch: 100%;
     letter-spacing: -0.015em;
+  }
+  @media (max-width: 767px) {
+    .h-section {
+      font-size: clamp(2rem, 7.5vw, 2.4rem);
+    }
   }
   .lead {
     font-size: clamp(1.1rem, 1.35vw, 1.3rem);
@@ -362,6 +371,10 @@
     white-space: nowrap;
     transition: background-color 200ms, color 200ms, border-color 200ms;
   }
+  /* Icons keep their size when a button is narrow and its label does not wrap. */
+  .btn > svg {
+    flex-shrink: 0;
+  }
   .btn-primary {
     background: var(--accent);
     color: var(--on-accent);
@@ -396,6 +409,7 @@
   }
   .roll::after {
     content: attr(data-label);
+    content: attr(data-label) / ''; /* decorative copy: screen readers read the label once */
     position: absolute;
     left: 0;
     top: 100%;
@@ -581,90 +595,6 @@
     }
   }
 
-  /* ── Horizontal sections ────────────────────────────── */
-
-  .hscroll-viewport {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
-    scrollbar-width: none;
-  }
-  .hscroll-viewport::-webkit-scrollbar {
-    display: none;
-  }
-  .hscroll-track {
-    display: flex;
-    width: max-content;
-    gap: clamp(1rem, 2vw, 2rem);
-    /* % resolves against the viewport element (not 100vw, which includes the scrollbar), matching .wrap. */
-    padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
-  }
-  .hscroll-track > * {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-  }
-  .hscroll-bar {
-    position: relative;
-    height: 2px;
-    overflow: hidden;
-    background: color-mix(in oklab, var(--ink) 15%, transparent);
-  }
-  .hscroll-bar > span {
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform-origin: left;
-    transform: scaleX(var(--progress, 0));
-  }
-  /* Wide screens with motion: the section is pinned and the track is moved by GSAP instead. */
-  .hscroll .h-section {
-    font-size: clamp(2.2rem, 3.9vw, 3.6rem);
-  }
-  @media (max-width: 767px) {
-    .h-section,
-    .hscroll .h-section {
-      font-size: clamp(2rem, 7.5vw, 2.4rem);
-    }
-  }
-  @media (min-width: 768px) {
-    /* The header tucks itself away while scrolling down, so a pinned section can use the full height. */
-    html.motion .hscroll {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-block: clamp(1.5rem, 5svh, 3.5rem) clamp(1.25rem, 3svh, 2.5rem);
-    }
-    html.motion .hscroll .hscroll-viewport {
-      margin-top: clamp(1.5rem, 4svh, 3rem);
-    }
-    html.motion .hscroll .hscroll-meta {
-      margin-top: clamp(1rem, 3svh, 2rem);
-    }
-  }
-  /* Short laptop screens: tighten the pinned sections so header, cards and progress all fit. */
-  @media (min-width: 768px) and (max-height: 820px) {
-    html.motion .hscroll .h-section {
-      font-size: clamp(2rem, 3.2vw, 2.9rem);
-    }
-    html.motion .hscroll .lead {
-      font-size: 1.02rem;
-    }
-    html.motion .hscroll .h-section.mt-5 {
-      margin-top: 0.75rem;
-    }
-  }
-  @media (min-width: 768px) {
-    html.motion .hscroll-viewport {
-      overflow: visible;
-      scroll-snap-type: none;
-    }
-    html.motion .hscroll-track {
-      will-change: transform;
-    }
-  }
-
   /* Cursor pill that follows the pointer over case-study cards. */
   .cursor-pill {
     position: fixed;
@@ -686,176 +616,58 @@
 
 /* ───────────────────────── Hero ───────────────────────── */
 
-/* In the components layer so Tailwind utilities on the same elements (colours, sizes) still win. */
 @layer components {
-  /* Scattered words and papers must never widen the page (phones would zoom out to fit them). */
-  .hero {
-    overflow-x: clip;
+  /* The H1 is two lines of one heading: a large greeting and the plain sentence of what Faiz builds. */
+  .hero-greeting {
+    font-size: clamp(2.75rem, 5.4vw, 5rem);
+    line-height: 1;
+    font-weight: 760;
+    font-stretch: 108%;
+    letter-spacing: -0.02em;
   }
   .hero-headline {
-    font-size: clamp(2.4rem, 4.4vw, 4.25rem);
-    line-height: 0.98;
-    font-weight: 760;
-  }
-  .hero-headline .word {
-    position: relative;
-    display: inline-block;
+    font-size: clamp(1.6rem, 2.6vw, 2.45rem);
+    line-height: 1.12;
+    font-weight: 700;
     font-stretch: 100%;
-    will-change: transform;
-  }
-  /* An invisible copy at the tidy width holds each word's place, so squeezing or stretching the
-     visible word never re-wraps the headline or moves the content below it (no layout shift). */
-  .hero-headline .word::before {
-    content: attr(data-w);
-    content: attr(data-w) / '';
-    visibility: hidden;
-  }
-  .hero-headline .word-ink {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    translate: -50% 0;
-    white-space: nowrap;
   }
 
-  .board {
+  /* Photo slot. Without a photo it shows the initials "FA" in the stamp colour on paper. */
+  .avatar {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-auto-rows: minmax(7.25rem, auto);
-  }
-  .board-sheet {
-    position: absolute;
-    inset: 0;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    box-shadow: 0 30px 60px -40px rgb(var(--shadow-rgb) / 0.45);
-  }
-  .panel {
-    --pb: 1;
-    position: relative;
-    padding: 1.1rem 1.2rem;
-    border-color: color-mix(in oklab, var(--line) calc(var(--pb) * 100%), transparent);
-  }
-  .panel-main { grid-column: span 4; grid-row: span 2; border-right-width: 1px; border-bottom-width: 1px; }
-  .panel-queue { grid-column: span 2; grid-row: span 2; border-bottom-width: 1px; }
-  .panel-data { grid-column: span 2; border-right-width: 1px; }
-  .panel-status { grid-column: span 2; border-right-width: 1px; }
-  .panel-history { grid-column: span 2; }
-
-  .face-messy {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /*
-   * Starting state when motion is allowed: fragments are loose papers scattered around the
-   * board, the sheet behind them is not there yet, and the headline words lie at odd angles
-   * in mixed widths. Each element carries its own offsets as custom properties. GSAP animates
-   * every one of these back to the natural layout, which is also the no-JS and reduced-motion view.
-   * If the hero script never reports ready, an inline failsafe adds .is-tidy.
-   */
-  html.motion .hero:not(.is-tidy) .board-sheet {
-    opacity: 0;
-  }
-  html.motion .hero:not(.is-tidy) .panel {
-    --pb: 0;
-    transform: translate(var(--sx, 0), var(--sy, 0)) rotate(var(--sr, 0deg));
-  }
-  html.motion .hero:not(.is-tidy) .face-messy {
-    opacity: 1;
-  }
-  html.motion .hero:not(.is-tidy) .face-clean {
-    opacity: 0;
-  }
-  html.motion .hero:not(.is-tidy) .hero-headline .word {
-    transform: translate(var(--wx, 0), var(--wy, 0)) rotate(var(--wr, 0deg));
-  }
-  html.motion .hero:not(.is-tidy) .hero-headline .word-ink {
-    font-stretch: var(--wdth-messy, 100%);
-  }
-
-  /* Paper fragments used by the messy faces */
-  .paper {
-    position: absolute;
-    background: var(--paper);
-    box-shadow: 0 1px 0 rgb(0 0 0 / 0.04), 0 14px 26px -16px rgb(var(--shadow-rgb) / 0.5);
-    color: #1e2a4a;
-  }
-  .sheet-grid {
-    display: grid;
-    grid-template-columns: 1.6fr repeat(3, 1fr);
-    font-size: 0.72rem;
-  }
-  .sheet-grid > span {
-    border: 1px solid #d7dde0; /* printed on paper: same in both themes */
-    margin: -0.5px;
-    padding: 0.2rem 0.35rem;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .bubble {
-    max-width: 85%;
-    padding: 0.35rem 0.6rem;
-    border-radius: 0.7rem;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    background: #ffffff;
-    color: #1e2a4a;
-    box-shadow: 0 1px 1px rgb(0 0 0 / 0.08);
-  }
-  .bubble-out {
-    margin-left: auto;
-    background: #dcf3d6;
-  }
-  .note {
-    font-style: italic;
-    font-weight: 600;
-    padding: 0.9rem 0.8rem;
-    line-height: 1.25;
-    color: #1e2a4a;
-  }
-  .stamp {
     display: grid;
     place-items: center;
-    border: 3px solid var(--accent);
-    outline: 1.5px solid var(--accent);
-    outline-offset: 3px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--accent) 10%, var(--surface));
     color: var(--accent);
     font-family: var(--font-display);
-    font-stretch: 125%;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    opacity: 0.82;
-    mix-blend-mode: var(--stamp-blend);
-    background: transparent;
-    box-shadow: none;
+    font-weight: 700;
+    font-stretch: 120%;
+    letter-spacing: 0.02em;
+    line-height: 1;
   }
-  .receipt {
-    padding: 0.8rem 0.9rem 1.3rem;
-    font-size: 0.78rem;
-    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  .avatar > img {
+    object-fit: cover;
+  }
+  .id-card {
+    box-shadow: 0 30px 60px -40px rgb(var(--shadow-rgb) / 0.45);
   }
 
-  /* Phones: the board keeps its idea (a report and an approval, messy then tidy) in two panels instead of five,
-     so it no longer costs a full screen of scrolling. */
-  @media (max-width: 767px) {
-    .hero-headline {
-      font-size: 2.15rem;
-    }
-    .board {
+  /* Proof under the hero: short facts with an accent rule, not buttons. */
+  .proof {
+    display: grid;
+    gap: 1rem 1.5rem;
+    line-height: 1.35;
+  }
+  .proof > li {
+    border-left: 2px solid var(--accent);
+    padding-left: 0.85rem;
+  }
+  @media (min-width: 640px) {
+    .proof-strip {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: minmax(6.5rem, auto);
-    }
-    .panel-main { grid-column: span 2; grid-row: span 1; border-right-width: 0; border-bottom-width: 1px; }
-    .panel-status { grid-column: span 2; border-right-width: 0; }
-    .panel-queue,
-    .panel-data,
-    .panel-history {
-      display: none;
     }
   }
 }
@@ -884,6 +696,10 @@
   /* Jumping to a section leaves room for the header, which reappears when scrolling up. */
   main section[id] {
     scroll-margin-top: var(--header-h);
+  }
+  /* Sections take focus after an in-page jump (so the next Tab starts there); the scroll already shows where it went. */
+  main section[id]:focus {
+    outline: none;
   }
 }
 
@@ -924,3 +740,304 @@
     }
   }
 }
+
+/* ───────────────────────── Phone pages (data-view="mobile") ───────────────────────── */
+
+/* html-level values for the phone pages: a lower top bar (scroll padding, page offsets) and room for the tab bar. */
+:root:has(.view-root[data-view='mobile']) {
+  --header-h: 3.5rem;
+  scroll-padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom) + 0.5rem);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.motion:has(.view-root[data-view='mobile']) {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .view-root[data-view='mobile'] {
+    padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
+  }
+  /* Landscape phones and a phone page forced onto a wide screen keep a readable column. */
+  [data-view='mobile'] .wrap {
+    max-width: 40rem;
+  }
+  [data-view='mobile'] .section {
+    padding-block: 2.75rem;
+  }
+  /* Section headings on phones take two lines, not four. */
+  [data-view='mobile'] .h-section {
+    font-size: clamp(1.75rem, 7.2vw, 2.1rem);
+    line-height: 1.08;
+  }
+
+  .m-topbar {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    height: var(--header-h);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 color-mix(in oklab, var(--line) 70%, transparent);
+  }
+
+  .m-tabbar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 40;
+    padding: 0 max(0.5rem, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(0.5rem, env(safe-area-inset-left));
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+  .m-tabbar > ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+  .m-tabbar :is(a, button) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    width: 100%;
+    min-height: var(--bar-h);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+  .m-tabbar :is(a, button) > svg {
+    padding: 0.15rem 1rem;
+    box-sizing: content-box;
+    border-radius: 999px;
+    transition: background-color 200ms;
+  }
+  /* Current tab: colour, weight and a pill behind the icon, so it is not signalled by colour alone. */
+  .m-tabbar [aria-current],
+  .m-tabbar [data-active] {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .m-tabbar [aria-current] > svg,
+  .m-tabbar [data-active] > svg {
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
+  }
+  .m-tabbar :focus-visible {
+    outline-offset: -3px;
+    border-radius: 12px;
+  }
+  .m-tab-wa {
+    color: var(--ink) !important;
+  }
+  .m-tab-wa-pill {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 1.8rem; /* same height as the icon pills of the other tabs */
+    border-radius: 999px;
+    background: var(--invert-bg);
+    color: #25d366;
+  }
+  :root[data-theme='dark'] .m-tab-wa-pill {
+    background: #25d366;
+    color: #0f1526;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .m-tab-wa-pill {
+      background: #25d366;
+      color: #0f1526;
+    }
+  }
+
+  /* Menu: a bottom sheet in the top layer. */
+  .m-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    width: 100%;
+    max-width: 40rem;
+    max-height: 85svh;
+    margin: auto auto 0;
+    padding: 0;
+    border: 0;
+    border-radius: 20px 20px 0 0;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .m-sheet::backdrop {
+    background: rgb(var(--shadow-rgb) / 0.45);
+  }
+  .m-sheet-panel {
+    padding: 1.25rem var(--gutter) calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .m-sheet-close {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--ink) 30%, transparent);
+  }
+  .m-sheet-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .m-sheet-link > span {
+    color: var(--accent);
+  }
+  .m-sheet-link[aria-current] {
+    color: var(--accent);
+  }
+  html:has(.m-sheet[open]) {
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html.motion .m-sheet[open] {
+      animation: sheet-up 0.35s var(--ease-out);
+    }
+  }
+  @keyframes sheet-up {
+    from {
+      translate: 0 40%;
+      opacity: 0;
+    }
+  }
+}
+
+@layer components {
+  /* Native accordion rows on the phone pages (about, case decisions): a full-width, 56px summary with a plus sign. */
+  .m-acc > summary {
+    display: flex;
+    min-height: 3.5rem;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    font-weight: 600;
+  }
+  .m-acc > summary::-webkit-details-marker {
+    display: none;
+  }
+  .m-acc > summary > [aria-hidden] {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--accent);
+    transition: rotate 300ms var(--ease-out);
+  }
+  .m-acc[open] > summary > [aria-hidden] {
+    rotate: 45deg;
+  }
+
+  /* A row of cards to swipe on the phone pages (habits on the home page), on the same left edge as the text. */
+  /* Same left edge as the phone column (.wrap, max 40rem), and clear of a landscape notch. */
+  .m-swipe,
+  .m-shots {
+    --m-edge: max(var(--gutter), (100% - 40rem) / 2, env(safe-area-inset-left));
+  }
+  .m-swipe {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--m-edge);
+    scrollbar-width: none;
+  }
+  .m-swipe::-webkit-scrollbar {
+    display: none;
+  }
+  .m-swipe > ol {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    padding-inline: var(--m-edge);
+  }
+  .m-swipe > ol > li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  /* Swipeable screenshots on the phone case page, starting on the same left edge as the text. */
+  .m-shots {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--m-edge);
+    scrollbar-width: none;
+  }
+  .m-shots::-webkit-scrollbar {
+    display: none;
+  }
+  .m-shots > ul {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: max-content;
+    padding-inline: var(--m-edge);
+  }
+  .m-shots li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .m-shots li > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .m-shot-desktop {
+    width: 86vw;
+    max-width: 36rem;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+  }
+  .m-shot-phone {
+    width: 58vw;
+    max-width: 16rem;
+    aspect-ratio: 9 / 19.5;
+    border: 4px solid var(--ink) !important;
+    border-radius: 1.4rem;
+  }
+
+  /* The archive filter on phones: one row of chips that scrolls sideways instead of wrapping onto several lines. */
+  .m-chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .m-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Contact block on the phone pages: a full-width WhatsApp button and a normal-sized email link. */
+  [data-view='mobile'] #contact .btn {
+    width: 100%;
+    min-height: 3.5rem;
+    justify-content: center;
+  }
+}
+

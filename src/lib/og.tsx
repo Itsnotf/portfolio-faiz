@@ -8,7 +8,7 @@ const font = (file: string) => readFile(join(process.cwd(), 'src/fonts/og', file
 
 /**
  * Link-preview image in the site's own language: paper background, ink type, and the
- * yellow and pink carbon copies with a violet stamp from the hero, tidied into a stack.
+ * yellow and pink carbon copies with a violet stamp, the site's paper-form palette, tidied into a stack.
  */
 export async function ogImage({ eyebrow, title, body, stamp }: { eyebrow: string; title: string; body?: string; stamp: string }) {
   const [display, sans, sansBold] = await Promise.all([font('Anybody-700.woff'), font('PublicSans-400.woff'), font('PublicSans-600.woff')]);

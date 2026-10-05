@@ -5,11 +5,11 @@
   },
   "nav": {
     "approach": "Cara kerja",
-    "work": "Proyek",
-    "archive": "Arsip",
+    "work": "Karya",
+    "archive": "Proyek lain",
     "about": "Tentang",
     "contact": "Kontak",
-    "cta": "Diskusikan proyek",
+    "cta": "Hubungi saya",
     "menu": "Menu",
     "close": "Tutup",
     "skip": "Lewati ke konten",
@@ -23,65 +23,43 @@
     "articles": "Artikel",
     "palembang": "Palembang",
     "home": "Beranda",
-    "breadcrumb": "Jejak halaman"
+    "breadcrumb": "Jejak halaman",
+    "quick": "Navigasi cepat",
+    "pages": "Halaman lain",
+    "sheet": "Semua halaman",
+    "whatsapp": "WhatsApp",
+    "whatsappLabel": "Chat dengan Faiz lewat WhatsApp",
+    "viewDesktop": "Versi desktop",
+    "viewMobile": "Versi mobile"
   },
   "hero": {
-    "hint": "Gulir untuk merapikan",
-    "primary": "Diskusikan proyekmu",
-    "secondary": "Lihat cara saya bekerja",
-    "label": "Aplikasi dan sistem untuk operasional bisnis"
-  },
-  "fragments": {
-    "sheetTitle": "rekap FINAL (3).xlsx",
-    "sheetTotal": "Total",
-    "rowA": "Cabang A",
-    "rowB": "Cabang B",
-    "rowC": "Gudang 2",
-    "rowD": "Toko C",
-    "chatTitle": "Grup Operasional",
-    "chat1": "sudah diinput belum?",
-    "chat2": "file terbaru yg mana ya",
-    "chat3": "yg acc siapa?",
-    "chat4": "cek lagi dong",
-    "sticky1": "stok beda sama catatan??",
-    "sticky2": "approval siapa?",
-    "stamp": "DISETUJUI",
-    "receipt": "bon 2jt — siapa yg acc?",
-    "mainTitle": "Laporan bulan ini",
-    "mainValue": "1.284 transaksi",
-    "mainNote": "setiap angka bisa ditelusuri ke asalnya",
-    "queueTitle": "Menunggu persetujuan",
-    "queueValue": "3 dari 18",
-    "queueNote": "jelas siapa mengajukan, siapa menyetujui",
-    "dataTitle": "Kelengkapan data",
-    "dataValue": "4 dari 6 terisi",
-    "dataNote": "2 data masih ditunggu",
-    "status": "Disetujui",
-    "statusNote": "tercatat siapa dan kapan",
-    "historyTitle": "Riwayat perubahan",
-    "historyValue": "Semua tercatat",
-    "historyNote": "12 perubahan bulan ini, 0 tanpa jejak"
+    "work": "Lihat karya",
+    "based": "Software engineer di Palembang, bisa kerja jarak jauh",
+    "proofLabel": "Sekilas tentang saya",
+    "photoAlt": "Foto Faiz Aflah Hafizuddin"
   },
   "approach": {
-    "eyebrow": "Cara saya berpikir",
-    "title": "Lima kebiasaan di balik sistem yang akurat",
-    "intro": "Masalah tiap klien berbeda, tapi cara saya membedahnya selalu sama. Ini langkah-langkahnya, masing-masing dengan contoh dari proyek nyata.",
-    "example": "Contoh nyata",
-    "see": "Lihat keputusannya"
+    "eyebrow": "Cara saya bekerja",
+    "title": "Yang bisa kamu harapkan saat bekerja dengan saya",
+    "intro": "Lima kebiasaan yang saya pegang di setiap proyek. Masing-masing ada contohnya di proyek nyata.",
+    "example": "Contoh"
   },
   "work": {
-    "eyebrow": "Proyek",
-    "title": "Keputusan di balik sistem yang dipakai",
-    "intro": "Setiap proyek menjelaskan masalahnya, kondisinya, dan alasan di balik keputusan pentingnya.",
+    "eyebrow": "Karya pilihan",
+    "title": "Sistem yang saya bangun untuk masalah nyata",
+    "intro": "Setiap proyek saya ceritakan dengan bahasa sehari-hari: untuk siapa, apa masalahnya, apa yang saya buat, dan bagaimana hasilnya.",
+    "for": "Untuk",
     "problem": "Masalahnya",
-    "decisions": "Keputusan penting",
-    "read": "Lihat detail proyek",
+    "built": "Yang saya buat",
+    "result": "Hasilnya",
+    "read": "Baca ceritanya",
+    "more": "Lihat {count} proyek lain",
     "cursor": "Baca"
   },
   "archive": {
     "eyebrow": "Proyek lain",
     "title": "Masalah lain yang pernah saya selesaikan",
-    "intro": "Proyek yang lebih kecil, dikelompokkan berdasarkan jenis masalahnya.",
+    "intro": "Proyek yang lebih kecil, dari peminjaman peralatan kantor sampai pemesanan minuman di kafe. Saring berdasarkan jenis masalahnya.",
     "filterLabel": "Saring berdasarkan jenis masalah",
     "all": "Semua",
     "rules": "Perhitungan & aturan bisnis",
@@ -94,20 +72,25 @@
     "showAll": "Lihat {count} proyek lain"
   },
   "about": {
-    "eyebrow": "Tentang",
-    "title": "Engineer yang juga pernah menjalankan bisnis",
-    "body1": "Saya Faiz, berbasis di Palembang. Saya membuat aplikasi dan sistem dari awal sampai siap dipakai, mulai dari tampilan yang mudah dipahami dan data yang tersimpan rapi, sampai fitur pintar seperti pengenalan wajah jika memang dibutuhkan.",
-    "body2": "Saat ini saya bekerja sebagai pengembang aplikasi di Loranet Technologies PLT, perusahaan teknologi di Malaysia, sambil tetap menjalankan Berkala Digital, agensi yang saya dirikan pada 2025. Di Berkala saya memimpin tim kreatif dan tim IT. Menjalankan bisnis sendiri mengajarkan hal yang sering terlambat disadari pembuat aplikasi, yaitu bahwa aplikasi baru benar-benar selesai ketika orang yang memakainya percaya padanya.",
+    "eyebrow": "Tentang saya",
+    "title": "Pembuat aplikasi yang juga menjalankan usaha sendiri",
+    "body1": "Saya Faiz, berbasis di Palembang. Saya mulai mengerjakan website untuk klien pada 2022, dan di semester dua kuliah di Politeknik Negeri Sriwijaya saya lolos ke final nasional KMIPN.",
+    "body2": "Setelah itu saya mengajar pembuatan aplikasi web, membimbing adik tingkat tiga tahun berturut-turut, dan pada 2025 mendirikan Berkala Digital, agensi digital di Palembang tempat saya memimpin tim kreatif dan tim IT. Sejak Juni 2026 saya juga bekerja sebagai software developer di Loranet Technologies PLT, perusahaan teknologi di Malaysia.",
+    "body3": "Menjalankan usaha sendiri mengajarkan satu hal yang saya bawa ke setiap proyek: aplikasi baru benar-benar selesai ketika orang yang memakainya percaya padanya.",
+    "facts": "Sekilas",
+    "based": "Berbasis di",
+    "serves": "Melayani",
+    "languages": "Bahasa",
     "experience": "Pengalaman",
+    "experienceCount": "Pengalaman kerja ({count})",
     "education": "Pendidikan",
     "recognition": "Pencapaian",
-    "cv": "Unduh CV (PDF)",
-    "more": "Lihat layanan"
+    "cv": "Unduh CV (PDF)"
   },
   "contact": {
     "eyebrow": "Kontak",
-    "title": "Punya proses yang ingin dirapikan?",
-    "body": "Ceritakan masalahnya, tidak perlu dalam bahasa teknis. Tiga hal di bawah ini membantu saya memahaminya lebih cepat.",
+    "title": "Ada pekerjaan yang ingin dirapikan? Ceritakan ke saya.",
+    "body": "Ceritakan dengan bahasa sehari-hari, tidak perlu istilah teknis. Tiga hal ini membantu saya memahaminya lebih cepat.",
     "prompt1": "Apa yang berjalan sekarang, entah Excel, kertas, grup chat, atau aplikasi lain.",
     "prompt2": "Siapa saja yang akan memakai sistemnya.",
     "prompt3": "Bagian mana yang paling sering salah atau paling lambat.",
@@ -119,10 +102,12 @@
     "waMessage": "Halo Faiz, saya ingin bertanya tentang aplikasi untuk usaha saya.",
     "float": "Chat WhatsApp",
     "similarTitle": "Punya masalah serupa?",
-    "similarBody": "Ceritakan kondisinya lewat WhatsApp atau email, tidak perlu dalam bahasa teknis."
+    "similarBody": "Ceritakan kondisinya lewat WhatsApp atau email, tidak perlu dalam bahasa teknis.",
+    "discuss": "Diskusikan proyekmu",
+    "signoff": "Saya tunggu ceritanya. — Faiz"
   },
   "case": {
-    "back": "Semua proyek",
+    "back": "Semua karya",
     "problem": "Masalahnya",
     "role": "Peran",
     "year": "Tahun",
@@ -132,11 +117,13 @@
     "decisions": "Keputusan penting",
     "state": "Kondisi saat ini",
     "reflection": "Refleksi",
-    "sample": "Gambar memakai data contoh untuk menjaga kerahasiaan klien.",
+    "sample": "Gambar memakai data contoh, bukan data asli.",
     "next": "Proyek berikutnya",
     "index": "Di halaman ini",
     "updated": "Diperbarui {date}",
-    "related": "Layanan terkait"
+    "related": "Layanan terkait",
+    "brief": "Ringkasnya",
+    "shots": "Tangkapan layar"
   },
   "footer": {
     "top": "Kembali ke atas",
@@ -191,8 +178,9 @@
   },
   "servicesSection": {
     "eyebrow": "Layanan",
-    "title": "Yang bisa saya bangun untukmu",
-    "intro": "Untuk toko, distributor, perusahaan jasa, dan instansi yang pekerjaannya masih berjalan di Excel, kertas, atau grup chat."
+    "title": "Yang bisa saya bantu",
+    "intro": "Untuk toko, distributor, perusahaan jasa, dan instansi yang pekerjaannya masih berjalan di Excel, kertas, atau grup chat.",
+    "more": "Lihat layanan"
   },
   "ui": {
     "swipe": "Geser untuk melihat lainnya"

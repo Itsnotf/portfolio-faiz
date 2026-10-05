@@ -1,67 +1,26 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { CaseIndex } from '@/components/case-index';
 import { ContactCta } from '@/components/contact-cta';
-import { JsonLd } from '@/components/json-ld';
 import { ProjectCover } from '@/components/project-cover';
 import { services } from '@/content/services';
-import { caseStudies } from '@/content/work';
+import type { Project } from '@/content/work';
 import { Link } from '@/i18n/navigation';
-import { routing, type Locale } from '@/i18n/routing';
-import { ogImagePath, pageMetadata } from '@/lib/seo';
-import { breadcrumb, caseStudyEntity, graph } from '@/lib/structured-data';
+import type { Locale } from '@/i18n/routing';
+import { BriefBox } from './brief-box';
 
-type Params = Promise<{ locale: Locale; slug: string }>;
-
-export function generateStaticParams() {
-  return routing.locales.flatMap((locale) => caseStudies.map((p) => ({ locale, slug: p.slug })));
-}
-
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const project = caseStudies.find((p) => p.slug === slug);
-  if (!project) return {};
-  return pageMetadata({
-    locale,
-    title: project.seoTitle?.[locale] ?? project.title[locale],
-    description: project.seoDescription?.[locale] ?? project.problem[locale],
-    hrefFor: () => ({ pathname: '/work/[slug]', params: { slug } }),
-    type: 'article',
-    image: ogImagePath(locale, `/work/${slug}`),
-  });
-}
-
-export default async function CaseStudyPage({ params }: { params: Params }) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-  const index = caseStudies.findIndex((p) => p.slug === slug);
-  if (index === -1) notFound();
-  const p = caseStudies[index];
+/** Case study, desktop: summary, facts, screenshots, then the story beside an "On this page" index. */
+export async function CaseDesktop({ project: p, next, locale }: { project: Project; next: Project; locale: Locale }) {
   const cs = p.caseStudy!;
-  const next = caseStudies[(index + 1) % caseStudies.length];
   const t = await getTranslations('case');
   const ta = await getTranslations('archive');
-
-  const tn = await getTranslations('nav');
   const related = services.filter((s) => s.proof.includes(p.slug));
   const updated = p.updated ? new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(p.updated)) : null;
-
   const phones = p.shots.filter((s) => s.kind === 'mobile');
   const desktops = p.shots.filter((s) => s.kind === 'desktop');
 
   return (
     <article className="pb-24">
-      <JsonLd
-        data={graph(
-          caseStudyEntity(locale, p),
-          breadcrumb(locale, [
-            { name: tn('home'), href: '/' },
-            { name: p.title[locale], href: { pathname: '/work/[slug]', params: { slug: p.slug } } },
-          ]),
-        )}
-      />
       <header className="wrap pt-[calc(var(--header-h)+2.5rem)] md:pt-[calc(var(--header-h)+4rem)]">
         <Link href={{ pathname: '/', hash: 'work' }} className="link-quiet tap-area inline-block text-sm font-semibold text-stempel">
           ← {t('back')}
@@ -92,6 +51,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             <dd>{p.status[locale]}</dd>
           </div>
         </dl>
+        <BriefBox brief={cs.brief} locale={locale} className="mt-12" />
       </header>
 
       <figure className="wrap mt-16">

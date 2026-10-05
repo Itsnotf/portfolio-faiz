@@ -26,7 +26,16 @@ export interface Stat {
   label: Localized;
 }
 
+/** A case study in four plain lines for the home page and the top of the case page. Facts only, no claims beyond the case. */
+export interface Brief {
+  audience: Localized;
+  problem: Localized;
+  built: Localized;
+  result: Localized;
+}
+
 export interface CaseStudy {
+  brief: Brief;
   context: Localized[];
   decisions: Decision[];
   stats?: Stat[];
@@ -75,7 +84,7 @@ export const projects: Project[] = [
       en: 'Case study of ALBATROS, a scholarship matching app and national finalist that scores eligibility honestly and has an AI coach that names its sources.',
     },
     seoTitle: { id: 'Aplikasi Pencocokan Beasiswa ALBATROS', en: 'ALBATROS Scholarship Matching App' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: same('ALBATROS'),
     problem: {
       id: 'Informasi beasiswa tersebar di banyak tempat, dan pelajar tidak tahu beasiswa mana yang benar-benar cocok untuk mereka.',
@@ -96,6 +105,18 @@ export const projects: Project[] = [
       { src: '/work/alb-coach.png', width: 1170, height: 3900, kind: 'mobile', alt: { en: 'AI Coach essay feedback scored on five criteria', id: 'Umpan balik esai AI Coach dengan penilaian lima kriteria' } },
     ],
     caseStudy: {
+      brief: {
+        audience: { id: 'Pelajar yang sedang mencari beasiswa.', en: 'Students looking for scholarships.' },
+        problem: {
+          id: 'Info beasiswa tersebar di mana-mana. Dari 80 pelajar yang disurvei, 76,3% ingin semuanya ada di satu tempat.',
+          en: 'Scholarship information is scattered everywhere. Of 80 students surveyed, 76.3% wanted it all in one place.',
+        },
+        built: {
+          id: 'Aplikasi HP yang menunjukkan beasiswa yang cocok, syarat yang masih kurang, dan melatih esai serta wawancara. Saya memimpin tim tiga orang dan menulis seluruh kodenya.',
+          en: 'A phone app that shows which scholarships fit, which requirements are still missing, and coaches essays and interviews. I led a team of three and wrote all the code.',
+        },
+        result: { id: 'Finalis nasional KMIPN VIII 2026. Masih dalam pengembangan.', en: 'National finalist at KMIPN VIII, 2026. Still in development.' },
+      },
       context: [
         {
           en: 'A survey of 80 students made the problem clear, with 60.5% finding scholarship information scattered and 76.3% wanting a single platform. ALBATROS was built for KMIPN VIII and reached the national final. I led a team of three and wrote all of the code myself.',
@@ -171,7 +192,7 @@ export const projects: Project[] = [
       en: 'Case study of a face-recognition attendance system for classrooms, with a 65% confidence threshold, double-entry protection and admin-approved fixes.',
     },
     seoTitle: { id: 'Aplikasi Absensi Pengenalan Wajah', en: 'Face-Recognition Attendance System' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: { id: 'Absensi pengenalan wajah', en: 'Face-recognition attendance' },
     problem: {
       id: 'Absensi kertas bisa dititipkan, dan merekapnya memakan waktu berjam-jam.',
@@ -192,6 +213,21 @@ export const projects: Project[] = [
 
     ],
     caseStudy: {
+      brief: {
+        audience: { id: 'Kampus: admin jurusan, dosen, dan mahasiswa.', en: 'A campus: department admins, lecturers and students.' },
+        problem: {
+          id: 'Absensi kertas bisa dititipkan, dan merekapnya makan waktu berjam-jam.',
+          en: 'Paper attendance could be signed for someone else, and compiling it took hours.',
+        },
+        built: {
+          id: 'Absensi yang dicatat otomatis dari kamera kelas dengan mengenali wajah, tanpa tanda tangan atau kartu.',
+          en: 'Attendance recorded automatically from the classroom camera by recognising faces, with no signatures or cards.',
+        },
+        result: {
+          id: 'Selesai dibangun. Kehadiran baru dicatat kalau sistem minimal 65% yakin, tidak bisa tercatat dua kali, dan koreksi harus disetujui admin.',
+          en: 'Built. Attendance is recorded only when the system is at least 65% sure, can never be recorded twice, and corrections need an admin’s approval.',
+        },
+      },
       context: [
         {
           en: 'Paper attendance can be signed on someone else’s behalf, and compiling it takes hours. The challenge is that faces have to be recognised continuously for the whole class, while an ordinary web application is not built to process video.',
@@ -246,7 +282,7 @@ export const projects: Project[] = [
       en: 'Case study of a payroll system for outsourced staff, with per-contract pay calendars, BPJS and cash-advance deductions, and every number traceable.',
     },
     seoTitle: { id: 'Aplikasi Penggajian Karyawan Outsourcing', en: 'Payroll System for Outsourced Staff' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: same('SIPEG'),
     problem: {
       id: 'Gaji karyawan yang ditempatkan di banyak klien harus dihitung dengan aturan yang berbeda di tiap kontrak, dan selisih satu rupiah langsung terasa oleh penerima slip gaji.',
@@ -266,6 +302,24 @@ export const projects: Project[] = [
       { src: '/work/sipeg-dashboard.png', width: 2880, height: 1800, kind: 'desktop', alt: { en: 'Payroll dashboard with pay composition per period and margin per contract', id: 'Dashboard penggajian dengan komposisi gaji per periode dan margin per kontrak' } },
     ],
     caseStudy: {
+      brief: {
+        audience: {
+          id: 'Perusahaan outsourcing yang menempatkan karyawannya di banyak klien.',
+          en: 'An outsourcing company that places its staff with many clients.',
+        },
+        problem: {
+          id: 'Gaji dihitung dengan aturan berbeda di tiap kontrak, dan selisih satu rupiah langsung terasa oleh karyawan.',
+          en: 'Pay follows different rules in every contract, and a one-rupiah mistake is felt by the employee straight away.',
+        },
+        built: {
+          id: 'Sistem penggajian dari kontrak sampai rincian gaji, yang menghitung hari kerja, BPJS, dan cicilan kasbon secara otomatis.',
+          en: 'A payroll system from contract to itemised pay that works out days worked, BPJS and salary-advance repayments automatically.',
+        },
+        result: {
+          id: 'Dipakai klien. Setiap baris gaji menunjukkan asal angkanya, jadi admin bisa memeriksanya sendiri.',
+          en: 'In use by a client. Every pay line shows where its numbers came from, so admins can check it themselves.',
+        },
+      },
       context: [
         {
           en: 'Every client contract has its own payday, staff can start mid-period, BPJS contributions differ by position, and employees can take a salary advance (cashbon) that is repaid from their pay. A one-rupiah mistake is felt by the person receiving the payslip.',
@@ -435,7 +489,7 @@ export const projects: Project[] = [
       en: 'Case study of a stock request and procurement system that automatically buys only the stock shortfall, with approvals and PDF reports.',
     },
     seoTitle: { id: 'Sistem Permintaan dan Pengadaan Barang', en: 'Stock Request and Procurement System' },
-    updated: '2026-09-28',
+    updated: '2026-10-05',
     title: { id: 'Permintaan & pengadaan barang', en: 'Stock requests & procurement' },
     problem: {
       id: 'Permintaan barang dari unit kerja harus dicocokkan dengan stok gudang dan pembelian ke vendor, supaya kekurangan terlihat sebelum barangnya dibutuhkan.',
@@ -460,6 +514,22 @@ export const projects: Project[] = [
       { src: '/work/procurement-dashboard.png', width: 2880, height: 1800, kind: 'desktop', alt: { en: 'Dashboard with low-stock items, recent procurements and recent requests', id: 'Dashboard dengan stok menipis, pengadaan terbaru, dan permintaan terbaru' } },
     ],
     caseStudy: {
+      // Built for a research project, so the brief never claims a client or use in production.
+      brief: {
+        audience: { id: 'Kantor yang unit kerjanya meminta barang ke gudang.', en: 'An office whose work units request items from a warehouse.' },
+        problem: {
+          id: 'Permintaan yang disetujui tanpa melihat stok berujung barang kosong, dan pembelian tanpa melihat permintaan berujung stok menumpuk.',
+          en: 'Approving requests without checking stock means promising items that are not there, and buying without checking requests piles up stock.',
+        },
+        built: {
+          id: 'Satu alur dari permintaan, stok, sampai pengadaan. Permintaan mendesak langsung dicek ke stok, dan sistem hanya membeli sebesar kekurangannya.',
+          en: 'One flow from request to stock to purchase. Urgent requests are checked against stock on the spot, and the system buys only the shortfall.',
+        },
+        result: {
+          id: 'Selesai dibangun, dengan akses terpisah untuk Admin, Tata Usaha, dan Kepala Bidang, laporan PDF, dan ringkasan yang menandai stok menipis.',
+          en: 'Built, with separate access for Admin, Administration and Division Head, PDF reports and a dashboard that flags low stock.',
+        },
+      },
       context: [
         {
           id: 'Unit kerja mengajukan permintaan barang, gudang mencatat stok, dan bagian pengadaan membeli ke vendor. Ketiganya saling bergantung. Permintaan yang disetujui tanpa melihat stok berujung pada barang yang tidak ada, dan pembelian tanpa melihat permintaan berujung pada stok yang menumpuk.',

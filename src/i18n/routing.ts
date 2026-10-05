@@ -9,6 +9,9 @@ export const routing = defineRouting({
   defaultLocale: 'id',
   localePrefix: 'as-needed',
   localeDetection: false,
+  // The pages render complete hreflang links themselves. next-intl's Link header reused the same slug in both languages
+  // (a 404 for services) and pointed x-default at Indonesian, contradicting the HTML.
+  alternateLinks: false,
   pathnames: {
     '/': '/',
     '/work/[slug]': '/work/[slug]',

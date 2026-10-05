@@ -8,7 +8,7 @@ import { MobileNav, type NavLink } from './mobile-nav';
 import { ThemeToggle } from './theme-toggle';
 
 /** Home-page sections in the main navigation. The archive is part of "Projects", so it has no entry of its own. */
-const SECTIONS = ['services', 'approach', 'work', 'about'] as const;
+const SECTIONS = ['work', 'about', 'services', 'approach'] as const;
 
 export async function SiteHeader() {
   const t = await getTranslations('nav');

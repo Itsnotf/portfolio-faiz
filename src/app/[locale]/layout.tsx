@@ -4,11 +4,6 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
-import { SiteHeader } from '@/components/site-header';
-import { WhatsAppFloat } from '@/components/whatsapp-float';
-import { SiteFooter } from '@/components/site-footer';
-import { SmootherInit } from '@/components/motion/smooth-scroll';
-import { PageMotion } from '@/components/motion/page-motion';
 import { siteUrl, alternates } from '@/lib/seo';
 import { Analytics } from '@vercel/analytics/next';
 import '../globals.css';
@@ -59,10 +54,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-// Adds `motion` to <html> before first paint when the visitor has not asked for reduced motion.
-// The hero's scattered starting state is pure CSS keyed on this class, so there is no flash of
-// the tidy layout jumping into chaos, and without JS or with reduced motion the page is simply tidy.
-// Failsafe: if the hero script has not reported in after a few seconds (blocked or failed JS), tidy it.
 // Applies a remembered light/dark choice before paint; without one, CSS follows the system setting.
 const themeFlag = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}`;
 
@@ -73,7 +64,9 @@ export const viewport: Viewport = {
   ],
 };
 
-const motionFlag = `try{if(matchMedia('(prefers-reduced-motion: no-preference)').matches){document.documentElement.classList.add('motion');setTimeout(function(){var h=document.querySelector('.hero');if(h&&!h.hasAttribute('data-ready'))h.classList.add('is-tidy')},3500)}}catch(e){}`;
+// Adds `motion` to <html> before first paint when the visitor has not asked for reduced motion; all animation is
+// keyed on it, so without JS or with reduced motion the page is simply static and fully readable.
+const motionFlag = `try{if(matchMedia('(prefers-reduced-motion: no-preference)').matches)document.documentElement.classList.add('motion')}catch(e){}`;
 
 // Some hosts inject a comment into <head> (Netlify adds "This site is hosted on Netlify…" after <meta charset>).
 // React renders <head> itself, so that stray comment and its whitespace break hydration; React then re-renders the
@@ -88,28 +81,15 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const t = await getTranslations({ locale, namespace: 'nav' });
 
   return (
-    <html lang={locale} className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    // data-scroll-behavior: the phone pages scroll smoothly to anchors via CSS; Next turns that off during route changes.
+    <html lang={locale} className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: headCleanup + themeFlag + motionFlag }} />
       </head>
       <body>
         <a href="#main" className="skip-link">{t('skip')}</a>
-        <NextIntlClientProvider>
-          <SiteHeader />
-          {/* ScrollSmoother moves #smooth-content; fixed UI (header, menu, cursor) must stay outside it. */}
-          <div id="smooth-wrapper">
-            <div id="smooth-content">
-              <SmootherInit />
-              <main id="main" tabIndex={-1} className="outline-none">
-                {children}
-              </main>
-              <SiteFooter />
-              <PageMotion />
-            </div>
-          </div>
-          {/* Fixed like the header, so it lives outside the smooth-scroll content. */}
-          <WhatsAppFloat />
-        </NextIntlClientProvider>
+        {/* Header, main, footer and motion are rendered per view by src/app/[locale]/{desktop,mobile}/layout.tsx. */}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
         {/* Only on Vercel: shows visits referred by chatgpt.com, perplexity.ai, gemini and search engines. */}
         {process.env.VERCEL ? <Analytics /> : null}
       </body>

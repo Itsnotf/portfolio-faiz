@@ -14,7 +14,7 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
   const { locale } = await params;
   return ogImage({
     eyebrow: `${profile.name}, ${profile.jobTitle[locale]}`,
-    title: hero.headline[locale],
+    title: `${hero.greeting[locale]} ${hero.headline[locale]}`,
     stamp: locale === 'id' ? 'DISETUJUI' : 'APPROVED',
   });
 }
