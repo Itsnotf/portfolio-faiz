@@ -4,15 +4,20 @@ import { local, services } from '@/content/services';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { articles } from '@/lib/articles';
+import type { View } from '@/lib/view';
 
-/** Footer with links to every service and help page: useful for visitors and tells search engines what matters. */
-export async function SiteFooter() {
+/**
+ * Footer with links to every service and help page: useful for visitors and tells search engines what matters.
+ * It also offers the other view, for a phone that was shown the wrong one (plain links, so it works without JS).
+ */
+export async function SiteFooter({ view }: { view: View }) {
   const t = await getTranslations();
   const locale = (await getLocale()) as Locale;
 
-  // Extra room at the bottom on phones so the floating WhatsApp button never covers the last links.
+  // Desktop view on a narrow screen: extra room so the floating WhatsApp button never covers the last links.
+  // The mobile view reserves room for its tab bar on the whole page instead.
   return (
-    <footer className="wrap border-t border-garis pb-24 pt-12 text-sm text-tinta-muda md:pb-8">
+    <footer className={`wrap border-t border-garis pt-12 text-sm text-tinta-muda ${view === 'mobile' ? 'pb-8' : 'pb-24 md:pb-8'}`}>
       <div className="grid-12 gap-y-10">
         <nav aria-label={t('footer.services')} className="md:col-span-5">
           <p className="font-semibold text-tinta">{t('footer.services')}</p>
@@ -53,6 +58,16 @@ export async function SiteFooter() {
         <p>
           © {new Date().getFullYear()} {profile.name}
         </p>
+        {/* rel=nofollow: the switch only sets a cookie and redirects back, so it is not a page for search engines. */}
+        {view === 'mobile' ? (
+          <a href="?view=desktop" rel="nofollow" className="link-quiet tap-area inline-block py-2 font-semibold text-tinta">
+            {t('nav.viewDesktop')}
+          </a>
+        ) : (
+          <a href="?view=mobile" rel="nofollow" className="link-quiet tap-area inline-block py-2 font-semibold text-tinta md:hidden">
+            {t('nav.viewMobile')}
+          </a>
+        )}
         <a href="#main" className="link-quiet tap-area inline-block py-2 font-semibold text-tinta">
           {t('footer.top')} ↑
         </a>

@@ -10,9 +10,10 @@ import { projects } from '@/content/work';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
+import type { View } from '@/lib/view';
 import { breadcrumb, faqPage, graph, professionalService } from '@/lib/structured-data';
 
-type Params = Promise<{ locale: Locale }>;
+type Params = Promise<{ locale: Locale; view: View }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params;

@@ -4,11 +4,6 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
-import { SiteHeader } from '@/components/site-header';
-import { WhatsAppFloat } from '@/components/whatsapp-float';
-import { SiteFooter } from '@/components/site-footer';
-import { SmootherInit } from '@/components/motion/smooth-scroll';
-import { PageMotion } from '@/components/motion/page-motion';
 import { siteUrl, alternates } from '@/lib/seo';
 import { Analytics } from '@vercel/analytics/next';
 import '../globals.css';
@@ -63,6 +58,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 const themeFlag = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}`;
 
 export const viewport: Viewport = {
+  // Lets the phone tab bar sit above the home indicator (env(safe-area-inset-bottom) is 0 without it).
+  viewportFit: 'cover',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#eef1f0' },
     { media: '(prefers-color-scheme: dark)', color: '#0f1526' },
@@ -86,28 +83,15 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const t = await getTranslations({ locale, namespace: 'nav' });
 
   return (
-    <html lang={locale} className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    // data-scroll-behavior: the phone pages scroll smoothly to anchors via CSS; Next turns that off during route changes.
+    <html lang={locale} className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: headCleanup + themeFlag + motionFlag }} />
       </head>
       <body>
         <a href="#main" className="skip-link">{t('skip')}</a>
-        <NextIntlClientProvider>
-          <SiteHeader />
-          {/* ScrollSmoother moves #smooth-content; fixed UI (header, menu, cursor) must stay outside it. */}
-          <div id="smooth-wrapper">
-            <div id="smooth-content">
-              <SmootherInit />
-              <main id="main" tabIndex={-1} className="outline-none">
-                {children}
-              </main>
-              <SiteFooter />
-              <PageMotion />
-            </div>
-          </div>
-          {/* Fixed like the header, so it lives outside the smooth-scroll content. */}
-          <WhatsAppFloat />
-        </NextIntlClientProvider>
+        {/* Header, main, footer and motion are rendered per view by src/app/[locale]/[view]/layout.tsx. */}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
         {/* Only on Vercel: shows visits referred by chatgpt.com, perplexity.ai, gemini and search engines. */}
         {process.env.VERCEL ? <Analytics /> : null}
       </body>

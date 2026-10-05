@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* View-specific tweaks in shared components: m:… applies only on the phone pages, d:… only on the desktop pages. */
+@custom-variant m (&:where([data-view='mobile'] *));
+@custom-variant d (&:where([data-view='desktop'] *));
+
 /*
  * Fallback for the Anybody headings while the web font loads. Bold Anybody is much wider than Arial, so the
  * default fallback wrapped headings onto fewer lines and everything below jumped when the font arrived (layout
@@ -83,6 +87,7 @@
   --measure: 36rem;
   --measure-wide: 44rem; /* about 75–80 characters of 18px body text */
   --header-h: 4.5rem;
+  --bar-h: 4rem; /* phone tab bar */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -725,3 +730,189 @@
     }
   }
 }
+
+/* ───────────────────────── Phone pages (data-view="mobile") ───────────────────────── */
+
+/* html-level values for the phone pages: a lower top bar (scroll padding, page offsets) and room for the tab bar. */
+:root:has(.view-root[data-view='mobile']) {
+  --header-h: 3.5rem;
+  scroll-padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom) + 0.5rem);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.motion:has(.view-root[data-view='mobile']) {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .view-root[data-view='mobile'] {
+    padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
+  }
+  /* Landscape phones and a phone page forced onto a wide screen keep a readable column. */
+  [data-view='mobile'] .wrap {
+    max-width: 40rem;
+  }
+  [data-view='mobile'] .section {
+    padding-block: 3rem;
+  }
+  /* 44px controls in the phone top bar (they are 40px on desktop). */
+  [data-view='mobile'] .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  [data-view='mobile'] .lang-switch {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    justify-content: center;
+  }
+
+  .m-topbar {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    height: var(--header-h);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 color-mix(in oklab, var(--line) 70%, transparent);
+  }
+
+  .m-tabbar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 40;
+    padding: 0 max(0.5rem, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(0.5rem, env(safe-area-inset-left));
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+  .m-tabbar > ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+  .m-tabbar :is(a, button) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.15rem;
+    width: 100%;
+    min-height: var(--bar-h);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+  .m-tabbar :is(a, button) > svg {
+    padding: 0.15rem 1rem;
+    box-sizing: content-box;
+    border-radius: 999px;
+    transition: background-color 200ms;
+  }
+  /* Current tab: colour, weight and a pill behind the icon, so it is not signalled by colour alone. */
+  .m-tabbar [aria-current],
+  .m-tabbar [data-active] {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .m-tabbar [aria-current] > svg,
+  .m-tabbar [data-active] > svg {
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
+  }
+  .m-tabbar :focus-visible {
+    outline-offset: -3px;
+    border-radius: 12px;
+  }
+  .m-tab-wa {
+    color: var(--ink) !important;
+  }
+  .m-tab-wa-pill {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 1.8rem; /* same height as the icon pills of the other tabs */
+    border-radius: 999px;
+    background: var(--invert-bg);
+    color: #25d366;
+  }
+  :root[data-theme='dark'] .m-tab-wa-pill {
+    background: #25d366;
+    color: #0f1526;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .m-tab-wa-pill {
+      background: #25d366;
+      color: #0f1526;
+    }
+  }
+
+  /* Menu: a bottom sheet in the top layer. */
+  .m-sheet {
+    position: fixed;
+    inset: auto 0 0;
+    width: 100%;
+    max-width: 40rem;
+    max-height: 85svh;
+    margin: auto auto 0;
+    padding: 0;
+    border: 0;
+    border-radius: 20px 20px 0 0;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .m-sheet::backdrop {
+    background: rgb(var(--shadow-rgb) / 0.45);
+  }
+  .m-sheet-panel {
+    padding: 1.25rem var(--gutter) calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .m-sheet-close {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--ink) 30%, transparent);
+  }
+  .m-sheet-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .m-sheet-link > span {
+    color: var(--accent);
+  }
+  .m-sheet-link[aria-current] {
+    color: var(--accent);
+  }
+  html:has(.m-sheet[open]) {
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html.motion .m-sheet[open] {
+      animation: sheet-up 0.35s var(--ease-out);
+    }
+  }
+  @keyframes sheet-up {
+    from {
+      translate: 0 40%;
+      opacity: 0;
+    }
+  }
+}
+
