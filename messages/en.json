@@ -5,11 +5,11 @@
   },
   "nav": {
     "approach": "How I work",
-    "work": "Projects",
-    "archive": "Archive",
+    "work": "Work",
+    "archive": "More projects",
     "about": "About",
     "contact": "Contact",
-    "cta": "Discuss a project",
+    "cta": "Get in touch",
     "menu": "Menu",
     "close": "Close",
     "skip": "Skip to content",
@@ -23,65 +23,43 @@
     "articles": "Articles",
     "palembang": "Palembang",
     "home": "Home",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "quick": "Quick navigation",
+    "pages": "More pages",
+    "sheet": "All pages",
+    "whatsapp": "WhatsApp",
+    "whatsappLabel": "Chat with Faiz on WhatsApp",
+    "viewDesktop": "Desktop version",
+    "viewMobile": "Mobile version"
   },
   "hero": {
-    "hint": "Scroll to tidy up",
-    "primary": "Discuss your project",
-    "secondary": "See how I work",
-    "label": "Apps and systems for business operations"
-  },
-  "fragments": {
-    "sheetTitle": "report FINAL (3).xlsx",
-    "sheetTotal": "Total",
-    "rowA": "Branch A",
-    "rowB": "Branch B",
-    "rowC": "Warehouse 2",
-    "rowD": "Store C",
-    "chatTitle": "Operations group",
-    "chat1": "has it been entered yet?",
-    "chat2": "which file is the latest",
-    "chat3": "who approved this?",
-    "chat4": "pls check again",
-    "sticky1": "stock doesn't match the log??",
-    "sticky2": "whose approval?",
-    "stamp": "APPROVED",
-    "receipt": "2 mil advance — who ok'd it?",
-    "mainTitle": "This month's report",
-    "mainValue": "1,284 transactions",
-    "mainNote": "every number traceable to its source",
-    "queueTitle": "Awaiting approval",
-    "queueValue": "3 of 18",
-    "queueNote": "clear who submitted, who approved",
-    "dataTitle": "Data completeness",
-    "dataValue": "4 of 6 filled",
-    "dataNote": "2 items still pending",
-    "status": "Approved",
-    "statusNote": "recorded who and when",
-    "historyTitle": "Change history",
-    "historyValue": "Everything logged",
-    "historyNote": "12 changes this month, 0 untraced"
+    "work": "See my work",
+    "based": "Software engineer in Palembang, works remotely too",
+    "proofLabel": "About me in brief",
+    "photoAlt": "Photo of Faiz Aflah Hafizuddin"
   },
   "approach": {
-    "eyebrow": "How I think",
-    "title": "Five habits behind accurate systems",
-    "intro": "Every client's problem is different, but the way I take it apart is always the same. Here are the steps, each with an example from a real project.",
-    "example": "Real example",
-    "see": "See the decision"
+    "eyebrow": "How I work",
+    "title": "What to expect when we work together",
+    "intro": "Five habits I keep on every project, each with an example from real work.",
+    "example": "Example"
   },
   "work": {
-    "eyebrow": "Projects",
-    "title": "The decisions behind systems people use",
-    "intro": "Each project explains the problem, the situation around it, and the reasoning behind its important decisions.",
+    "eyebrow": "Selected work",
+    "title": "Systems I built for real problems",
+    "intro": "Each one in plain words: who it was for, what was wrong, what I built and how it turned out.",
+    "for": "For",
     "problem": "The problem",
-    "decisions": "Important decisions",
-    "read": "See the project",
+    "built": "What I built",
+    "result": "The result",
+    "read": "Read the story",
+    "more": "See {count} more projects",
     "cursor": "Read"
   },
   "archive": {
     "eyebrow": "More projects",
     "title": "Other problems I have solved",
-    "intro": "Smaller projects, grouped by the kind of problem they solve.",
+    "intro": "Smaller projects, from office equipment loans to café drink ordering. Filter them by the kind of problem.",
     "filterLabel": "Filter by kind of problem",
     "all": "All",
     "rules": "Calculations & business rules",
@@ -94,20 +72,27 @@
     "showAll": "Show {count} more projects"
   },
   "about": {
-    "eyebrow": "About",
-    "title": "An engineer who has also run a business",
-    "body1": "I’m Faiz, based in Palembang. I build apps and systems from the first conversation to the day they are in use, from screens that are easy to understand and data that stays tidy to smart features like face recognition when they are genuinely needed.",
-    "body2": "I currently work as an app developer at Loranet Technologies PLT, a technology company in Malaysia, while still running Berkala Digital, the agency I founded in 2025, where I lead the creative and IT teams. Running a business taught me something app builders often learn late, which is that an app is only finished when the people using it trust it.",
+    "eyebrow": "About me",
+    "title": "A developer who also runs a business",
+    "body1": "I’m Faiz, based in Palembang. I started building websites for clients in 2022, and in my second semester at Politeknik Negeri Sriwijaya I reached the national final of KMIPN.",
+    "body2": "Since then I have taught web app development, mentored junior students three years in a row, and in 2025 founded Berkala Digital, a digital agency in Palembang where I lead the creative and IT teams. Since June 2026 I have also worked as a software developer at Loranet Technologies PLT, a technology company in Malaysia.",
+    "body3": "Running a business taught me something I bring to every project: an app is only finished when the people using it trust it.",
+    "facts": "At a glance",
+    "based": "Based in",
+    "serves": "Works with",
+    "languages": "Languages",
     "experience": "Experience",
+    "current": "Currently",
+    "earlier": "Earlier experience ({count})",
     "education": "Education",
     "recognition": "Recognition",
-    "cv": "Download CV (PDF)",
-    "more": "See the service"
+    "eduRec": "Education & recognition",
+    "cv": "Download CV (PDF)"
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Have a process that needs tidying up?",
-    "body": "Tell me about the problem, no technical language needed. The three things below help me understand it faster.",
+    "title": "Got work that needs tidying up? Tell me about it.",
+    "body": "Plain words are fine, no technical terms needed. These three things help me understand it faster.",
     "prompt1": "What runs today, whether that is spreadsheets, paper, group chats or another app.",
     "prompt2": "Who will use the system.",
     "prompt3": "Which part goes wrong most often, or is slowest.",
@@ -119,10 +104,12 @@
     "waMessage": "Hi Faiz, I would like to ask about an app for my business.",
     "float": "Chat on WhatsApp",
     "similarTitle": "Facing a similar problem?",
-    "similarBody": "Tell me about it on WhatsApp or by email, no technical language needed."
+    "similarBody": "Tell me about it on WhatsApp or by email, no technical language needed.",
+    "discuss": "Discuss your project",
+    "signoff": "Looking forward to hearing from you. — Faiz"
   },
   "case": {
-    "back": "All projects",
+    "back": "All work",
     "problem": "The problem",
     "role": "Role",
     "year": "Year",
@@ -136,7 +123,9 @@
     "next": "Next project",
     "index": "On this page",
     "updated": "Updated {date}",
-    "related": "Related services"
+    "related": "Related services",
+    "brief": "In short",
+    "shots": "Screenshots"
   },
   "footer": {
     "top": "Back to top",
@@ -191,8 +180,9 @@
   },
   "servicesSection": {
     "eyebrow": "Services",
-    "title": "What I can build for you",
-    "intro": "For shops, distributors, service companies and institutions whose daily work still runs on spreadsheets, paper or group chats."
+    "title": "How I can help",
+    "intro": "For shops, distributors, service companies and institutions whose daily work still runs on spreadsheets, paper or group chats.",
+    "more": "See the service"
   },
   "ui": {
     "swipe": "Swipe to see more"

@@ -51,8 +51,8 @@ export default async function PalembangPage({ params }: { params: Params }) {
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a className="btn btn-primary" href="#contact" data-magnetic>
-                  <span className="roll" data-label={t('hero.primary')}>
-                    <span>{t('hero.primary')}</span>
+                  <span className="roll" data-label={t('contact.discuss')}>
+                    <span>{t('contact.discuss')}</span>
                   </span>
                 </a>
               </div>
@@ -74,7 +74,7 @@ export default async function PalembangPage({ params }: { params: Params }) {
                   >
                     <span className="font-display text-xl font-bold">{s.h1[locale]}</span>
                     <span className="mt-2 block text-[0.975rem] text-tinta-muda">{summary(s.key, locale)}</span>
-                    <span className="link mt-auto self-start pt-4 text-sm font-semibold text-stempel">{t('about.more')}</span>
+                    <span className="link mt-auto self-start pt-4 text-sm font-semibold text-stempel">{t('servicesSection.more')}</span>
                   </Link>
                 </li>
               ))}

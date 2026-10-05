@@ -70,6 +70,7 @@ export async function ContactSection() {
               </li>
             ) : null}
           </ul>
+          <p className="mt-10 font-display text-xl font-bold text-on-invert/90">{t('signoff')}</p>
         </div>
       </div>
     </section>

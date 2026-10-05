@@ -22,21 +22,21 @@ TypeScript: `typescript` is aliased to the TS 6 API package (typescript-eslint a
 
 | What | File |
 |---|---|
-| Hero copy, the five principles ("Cara saya berpikir"), home service cards, experience, standard bio | `src/content/profile.ts` |
+| Hero copy and proof list, the five principles ("Cara saya bekerja"), home service cards, experience, standard bio | `src/content/profile.ts` |
 | Service pages, Palembang page, all FAQ answers | `src/content/services.ts` |
 | Articles (Markdown, one file per language, paired by `key`) | `content/articles/{id,en}/<slug>.md`, read by `src/lib/articles.ts` |
-| Case studies and archive projects (problem, decisions, diagrams, screenshots) | `src/content/work.ts` |
+| Case studies (plain-language `brief`, problem, decisions, screenshots) and archive projects (diagrams) | `src/content/work.ts` |
 | Buttons, headings and other UI text | `messages/id.json`, `messages/en.json` |
-| Page sections | `src/app/[locale]/page.tsx`, `src/components/{hero,approach-section,case-gallery,archive-section}.tsx` |
+| Home page sections | `src/components/home/desktop/*`, `src/components/{archive-section,contact-section}.tsx` |
 | Case-study page and its side index | `src/app/[locale]/work/[slug]/page.tsx`, `src/components/case-index.tsx` |
-| Motion (smooth scroll, horizontal sections, reveals) | `src/components/motion/*` |
+| Motion (smooth scroll, reveals) | `src/components/motion/*` |
 | Colour tokens, layout grid, dark theme | `src/app/globals.css` |
 | Canonical URLs, hreflang, page metadata | `src/lib/seo.ts` |
 | Structured data (Person, ProfessionalService, Service, FAQPage, BlogPosting…) | `src/lib/structured-data.ts` |
 | Sitemap, robots (incl. AI crawlers), llms.txt | `src/app/sitemap.ts`, `src/app/robots.ts`, `src/lib/llms.ts` |
 
 **Adding a project:** add an entry to `projects` in `src/content/work.ts`. With a `caseStudy` block it becomes a case study
-(horizontal gallery + its own page); without one it goes to the archive, where its `diagram` is drawn by
+(a row under "Karya pilihan" on the home page + its own page; fill in its `brief`); without one it goes to the archive, where its `diagram` is drawn by
 `src/components/entity-diagram.tsx`. Use descriptive titles for client work, never repo names. Projects do not link to
 their repositories.
 
@@ -72,20 +72,17 @@ a language or a required field.
   same inset, so every section starts on the same left edge at every width.
 - Two text widths only: `.measure` and `.measure-wide`.
 - Colours are semantic tokens on `:root` (`--bg`, `--ink`, `--accent`…); the Tailwind names (`kertas`, `tinta`, `stempel`…)
-  map onto them. Paper fragments in the hero keep fixed light colours in both themes on purpose.
+  map onto them.
 
 ## Motion and accessibility
 
 - An inline script adds `motion` to `<html>` only when the visitor has not asked for reduced motion; all animation is keyed
-  on it. Without JS or with reduced motion the page is fully readable, and horizontal sections become swipe carousels.
+  on it. Without JS or with reduced motion the page is fully readable; nothing is hidden until a script runs.
 - ScrollSmoother runs on desktop only (touch devices scroll natively). `position: sticky` does not work inside it, so pinned
   things use ScrollTrigger `pin`.
-- Horizontal sections (`HorizontalScroller`) pin on screens ≥768px; a `short:` Tailwind variant tightens them on short
-  laptop screens so header, cards and progress always fit.
 - Page-level motion is driven by data attributes (`data-split`, `data-reveal`, `data-count`, `data-draw`, `data-magnetic`,
   `data-cursor`) handled by `PageMotion`, so content stays in server components.
 - Theme: follows the system until the visitor chooses; the choice is stored in `localStorage` and applied before paint.
-- The hero has a failsafe: if its script never reports ready, it is tidied after 3.5 s.
 
 ## Search engines and AI assistants
 
@@ -125,7 +122,8 @@ Things to know:
 ## Still to do
 
 - [ ] Put an up-to-date CV at `public/cv/cv-faiz-aflah-hafizuddin.pdf` and set `profile.cv` (the one in Documents is outdated).
-- [ ] Add a photo in `src/content/profile.ts` (and a LinkedIn URL if you create one).
+- [ ] Add a photo at `public/photo.jpg` and set `profile.photo` in `src/content/profile.ts` (until then the hero shows the
+  initials "FA"), and a LinkedIn URL if you create one.
 - [ ] Buy the domain (.com or .dev), connect it in Netlify, and work through `docs/seo-offsite.md`.
 - [ ] Confirm the reasoning for the 0.65 recognition threshold (`TODO(Faiz)` in `src/content/work.ts`).
 - [ ] Add a reflection to the SIPEG case study: what triggered the September 2026 rebuild?

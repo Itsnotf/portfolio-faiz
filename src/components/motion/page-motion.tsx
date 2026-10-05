@@ -12,7 +12,7 @@ import { gsap, motionOn, ScrollSmoother, ScrollTrigger, scrollToTarget, SplitTex
  *   data-magnetic         element leans towards the pointer
  *   data-cursor="Read"    a pill with this label follows the pointer while hovering
  * Rendered as the last child inside #smooth-content, so it runs after every page component and
- * again on each navigation. Elements inside horizontal tracks are animated by HorizontalScroller.
+ * again on each navigation.
  */
 export function PageMotion() {
   const pathname = usePathname();
@@ -34,8 +34,7 @@ export function PageMotion() {
 
       const main = document.getElementById('main');
       if (!main) return;
-      const outsideTracks = (el: Element) => !el.closest('.hscroll-track');
-      const all = <T extends Element>(sel: string) => Array.from(main.querySelectorAll<T & Element>(sel)).filter(outsideTracks) as T[];
+      const all = <T extends Element>(sel: string) => Array.from(main.querySelectorAll<T & Element>(sel)) as T[];
 
       all<HTMLElement>('[data-split]').forEach((el) => {
         SplitText.create(el, {

@@ -1,8 +1,5 @@
 @import 'tailwindcss';
 
-/* Wide but short screens (laptops at 1366×768, 1280×720): pinned sections tighten up. */
-@custom-variant short (@media (min-width: 768px) and (max-height: 820px));
-
 /*
  * Fallback for the Anybody headings while the web font loads. Bold Anybody is much wider than Arial, so the
  * default fallback wrapped headings onto fewer lines and everything below jumped when the font arrived (layout
@@ -52,7 +49,7 @@
 /*
  * Palette taken from carbon-copy office forms: paper, ballpoint ink, the violet of a rubber
  * stamp, and the yellow and pink copies of a multi-part form. Yellow and pink appear only in
- * the "messy" state of the hero and in small markers; the tidy site is paper, ink and stamp.
+ * small markers and the share images; the site itself is paper, ink and stamp.
  *
  * Every colour is a semantic token on :root so the dark theme only has to redefine the tokens.
  * The Tailwind names (kertas, tinta, stempel…) map onto the tokens, so utilities follow the theme.
@@ -279,6 +276,11 @@
     font-stretch: 100%;
     letter-spacing: -0.015em;
   }
+  @media (max-width: 767px) {
+    .h-section {
+      font-size: clamp(2rem, 7.5vw, 2.4rem);
+    }
+  }
   .lead {
     font-size: clamp(1.1rem, 1.35vw, 1.3rem);
     line-height: 1.55;
@@ -396,6 +398,7 @@
   }
   .roll::after {
     content: attr(data-label);
+    content: attr(data-label) / ''; /* decorative copy: screen readers read the label once */
     position: absolute;
     left: 0;
     top: 100%;
@@ -581,90 +584,6 @@
     }
   }
 
-  /* ── Horizontal sections ────────────────────────────── */
-
-  .hscroll-viewport {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
-    scrollbar-width: none;
-  }
-  .hscroll-viewport::-webkit-scrollbar {
-    display: none;
-  }
-  .hscroll-track {
-    display: flex;
-    width: max-content;
-    gap: clamp(1rem, 2vw, 2rem);
-    /* % resolves against the viewport element (not 100vw, which includes the scrollbar), matching .wrap. */
-    padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
-  }
-  .hscroll-track > * {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-  }
-  .hscroll-bar {
-    position: relative;
-    height: 2px;
-    overflow: hidden;
-    background: color-mix(in oklab, var(--ink) 15%, transparent);
-  }
-  .hscroll-bar > span {
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform-origin: left;
-    transform: scaleX(var(--progress, 0));
-  }
-  /* Wide screens with motion: the section is pinned and the track is moved by GSAP instead. */
-  .hscroll .h-section {
-    font-size: clamp(2.2rem, 3.9vw, 3.6rem);
-  }
-  @media (max-width: 767px) {
-    .h-section,
-    .hscroll .h-section {
-      font-size: clamp(2rem, 7.5vw, 2.4rem);
-    }
-  }
-  @media (min-width: 768px) {
-    /* The header tucks itself away while scrolling down, so a pinned section can use the full height. */
-    html.motion .hscroll {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-block: clamp(1.5rem, 5svh, 3.5rem) clamp(1.25rem, 3svh, 2.5rem);
-    }
-    html.motion .hscroll .hscroll-viewport {
-      margin-top: clamp(1.5rem, 4svh, 3rem);
-    }
-    html.motion .hscroll .hscroll-meta {
-      margin-top: clamp(1rem, 3svh, 2rem);
-    }
-  }
-  /* Short laptop screens: tighten the pinned sections so header, cards and progress all fit. */
-  @media (min-width: 768px) and (max-height: 820px) {
-    html.motion .hscroll .h-section {
-      font-size: clamp(2rem, 3.2vw, 2.9rem);
-    }
-    html.motion .hscroll .lead {
-      font-size: 1.02rem;
-    }
-    html.motion .hscroll .h-section.mt-5 {
-      margin-top: 0.75rem;
-    }
-  }
-  @media (min-width: 768px) {
-    html.motion .hscroll-viewport {
-      overflow: visible;
-      scroll-snap-type: none;
-    }
-    html.motion .hscroll-track {
-      will-change: transform;
-    }
-  }
-
   /* Cursor pill that follows the pointer over case-study cards. */
   .cursor-pill {
     position: fixed;
@@ -686,176 +605,58 @@
 
 /* ───────────────────────── Hero ───────────────────────── */
 
-/* In the components layer so Tailwind utilities on the same elements (colours, sizes) still win. */
 @layer components {
-  /* Scattered words and papers must never widen the page (phones would zoom out to fit them). */
-  .hero {
-    overflow-x: clip;
+  /* The H1 is two lines of one heading: a large greeting and the plain sentence of what Faiz builds. */
+  .hero-greeting {
+    font-size: clamp(2.75rem, 5.4vw, 5rem);
+    line-height: 1;
+    font-weight: 760;
+    font-stretch: 108%;
+    letter-spacing: -0.02em;
   }
   .hero-headline {
-    font-size: clamp(2.4rem, 4.4vw, 4.25rem);
-    line-height: 0.98;
-    font-weight: 760;
-  }
-  .hero-headline .word {
-    position: relative;
-    display: inline-block;
+    font-size: clamp(1.6rem, 2.6vw, 2.45rem);
+    line-height: 1.12;
+    font-weight: 700;
     font-stretch: 100%;
-    will-change: transform;
-  }
-  /* An invisible copy at the tidy width holds each word's place, so squeezing or stretching the
-     visible word never re-wraps the headline or moves the content below it (no layout shift). */
-  .hero-headline .word::before {
-    content: attr(data-w);
-    content: attr(data-w) / '';
-    visibility: hidden;
-  }
-  .hero-headline .word-ink {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    translate: -50% 0;
-    white-space: nowrap;
   }
 
-  .board {
+  /* Photo slot. Without a photo it shows the initials "FA" in the stamp colour on paper. */
+  .avatar {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-auto-rows: minmax(7.25rem, auto);
-  }
-  .board-sheet {
-    position: absolute;
-    inset: 0;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    box-shadow: 0 30px 60px -40px rgb(var(--shadow-rgb) / 0.45);
-  }
-  .panel {
-    --pb: 1;
-    position: relative;
-    padding: 1.1rem 1.2rem;
-    border-color: color-mix(in oklab, var(--line) calc(var(--pb) * 100%), transparent);
-  }
-  .panel-main { grid-column: span 4; grid-row: span 2; border-right-width: 1px; border-bottom-width: 1px; }
-  .panel-queue { grid-column: span 2; grid-row: span 2; border-bottom-width: 1px; }
-  .panel-data { grid-column: span 2; border-right-width: 1px; }
-  .panel-status { grid-column: span 2; border-right-width: 1px; }
-  .panel-history { grid-column: span 2; }
-
-  .face-messy {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /*
-   * Starting state when motion is allowed: fragments are loose papers scattered around the
-   * board, the sheet behind them is not there yet, and the headline words lie at odd angles
-   * in mixed widths. Each element carries its own offsets as custom properties. GSAP animates
-   * every one of these back to the natural layout, which is also the no-JS and reduced-motion view.
-   * If the hero script never reports ready, an inline failsafe adds .is-tidy.
-   */
-  html.motion .hero:not(.is-tidy) .board-sheet {
-    opacity: 0;
-  }
-  html.motion .hero:not(.is-tidy) .panel {
-    --pb: 0;
-    transform: translate(var(--sx, 0), var(--sy, 0)) rotate(var(--sr, 0deg));
-  }
-  html.motion .hero:not(.is-tidy) .face-messy {
-    opacity: 1;
-  }
-  html.motion .hero:not(.is-tidy) .face-clean {
-    opacity: 0;
-  }
-  html.motion .hero:not(.is-tidy) .hero-headline .word {
-    transform: translate(var(--wx, 0), var(--wy, 0)) rotate(var(--wr, 0deg));
-  }
-  html.motion .hero:not(.is-tidy) .hero-headline .word-ink {
-    font-stretch: var(--wdth-messy, 100%);
-  }
-
-  /* Paper fragments used by the messy faces */
-  .paper {
-    position: absolute;
-    background: var(--paper);
-    box-shadow: 0 1px 0 rgb(0 0 0 / 0.04), 0 14px 26px -16px rgb(var(--shadow-rgb) / 0.5);
-    color: #1e2a4a;
-  }
-  .sheet-grid {
-    display: grid;
-    grid-template-columns: 1.6fr repeat(3, 1fr);
-    font-size: 0.72rem;
-  }
-  .sheet-grid > span {
-    border: 1px solid #d7dde0; /* printed on paper: same in both themes */
-    margin: -0.5px;
-    padding: 0.2rem 0.35rem;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .bubble {
-    max-width: 85%;
-    padding: 0.35rem 0.6rem;
-    border-radius: 0.7rem;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    background: #ffffff;
-    color: #1e2a4a;
-    box-shadow: 0 1px 1px rgb(0 0 0 / 0.08);
-  }
-  .bubble-out {
-    margin-left: auto;
-    background: #dcf3d6;
-  }
-  .note {
-    font-style: italic;
-    font-weight: 600;
-    padding: 0.9rem 0.8rem;
-    line-height: 1.25;
-    color: #1e2a4a;
-  }
-  .stamp {
     display: grid;
     place-items: center;
-    border: 3px solid var(--accent);
-    outline: 1.5px solid var(--accent);
-    outline-offset: 3px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: color-mix(in oklab, var(--accent) 10%, var(--surface));
     color: var(--accent);
     font-family: var(--font-display);
-    font-stretch: 125%;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    opacity: 0.82;
-    mix-blend-mode: var(--stamp-blend);
-    background: transparent;
-    box-shadow: none;
+    font-weight: 700;
+    font-stretch: 120%;
+    letter-spacing: 0.02em;
+    line-height: 1;
   }
-  .receipt {
-    padding: 0.8rem 0.9rem 1.3rem;
-    font-size: 0.78rem;
-    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  .avatar > img {
+    object-fit: cover;
+  }
+  .id-card {
+    box-shadow: 0 30px 60px -40px rgb(var(--shadow-rgb) / 0.45);
   }
 
-  /* Phones: the board keeps its idea (a report and an approval, messy then tidy) in two panels instead of five,
-     so it no longer costs a full screen of scrolling. */
-  @media (max-width: 767px) {
-    .hero-headline {
-      font-size: 2.15rem;
-    }
-    .board {
+  /* Proof under the hero: short facts with an accent rule, not buttons. */
+  .proof {
+    display: grid;
+    gap: 1rem 1.5rem;
+    line-height: 1.35;
+  }
+  .proof > li {
+    border-left: 2px solid var(--accent);
+    padding-left: 0.85rem;
+  }
+  @media (min-width: 640px) {
+    .proof-strip {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: minmax(6.5rem, auto);
-    }
-    .panel-main { grid-column: span 2; grid-row: span 1; border-right-width: 0; border-bottom-width: 1px; }
-    .panel-status { grid-column: span 2; border-right-width: 0; }
-    .panel-queue,
-    .panel-data,
-    .panel-history {
-      display: none;
     }
   }
 }

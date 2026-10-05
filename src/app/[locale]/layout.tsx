@@ -59,10 +59,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-// Adds `motion` to <html> before first paint when the visitor has not asked for reduced motion.
-// The hero's scattered starting state is pure CSS keyed on this class, so there is no flash of
-// the tidy layout jumping into chaos, and without JS or with reduced motion the page is simply tidy.
-// Failsafe: if the hero script has not reported in after a few seconds (blocked or failed JS), tidy it.
 // Applies a remembered light/dark choice before paint; without one, CSS follows the system setting.
 const themeFlag = `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}`;
 
@@ -73,7 +69,9 @@ export const viewport: Viewport = {
   ],
 };
 
-const motionFlag = `try{if(matchMedia('(prefers-reduced-motion: no-preference)').matches){document.documentElement.classList.add('motion');setTimeout(function(){var h=document.querySelector('.hero');if(h&&!h.hasAttribute('data-ready'))h.classList.add('is-tidy')},3500)}}catch(e){}`;
+// Adds `motion` to <html> before first paint when the visitor has not asked for reduced motion; all animation is
+// keyed on it, so without JS or with reduced motion the page is simply static and fully readable.
+const motionFlag = `try{if(matchMedia('(prefers-reduced-motion: no-preference)').matches)document.documentElement.classList.add('motion')}catch(e){}`;
 
 // Some hosts inject a comment into <head> (Netlify adds "This site is hosted on Netlify…" after <meta charset>).
 // React renders <head> itself, so that stray comment and its whitespace break hydration; React then re-renders the

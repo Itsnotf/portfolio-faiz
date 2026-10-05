@@ -77,8 +77,8 @@ export default async function ServicePage({ params }: { params: Params }) {
               <p className="mt-4 text-sm text-tinta-muda">{t('service.updated', { date: updated })}</p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a className="btn btn-primary" href="#contact" data-magnetic>
-                  <span className="roll" data-label={t('hero.primary')}>
-                    <span>{t('hero.primary')}</span>
+                  <span className="roll" data-label={t('contact.discuss')}>
+                    <span>{t('contact.discuss')}</span>
                   </span>
                 </a>
                 <a className="btn btn-secondary" href="#proof">
